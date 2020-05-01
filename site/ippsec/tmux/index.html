@@ -143,22 +143,30 @@
               
                 <h3 id="tmux-runs-as-a-process-and-not-tied-to-a-session-so-if-you-make-a-tmux-session-it-will-not-die-when-your-ssh-connection-get-closed-so-you-cna-reconnect-easily-to-earlier-session-without-losing-anything">tmux runs as a process and not tied to a session, so if you make a tmux session it will not die when your ssh connection get closed, so you cna reconnect easily to earlier session without losing anything</h3>
 <h3 id="create-new-tmux-session">Create New tmux session</h3>
-<p># tmux new -s \&lt;name></p>
+<pre><code>tmux new -s \&lt;name\&gt;
+</code></pre>
+
 <p>example: </p>
-<p># tmux new -s HTB</p>
+<pre><code>tmux new -s HTB
+</code></pre>
+
 <h3 id="prefix-key">Prefix key</h3>
 <p>Ctrl + b === Prefix key</p>
 <h3 id="to-create-a-new-window">To create a new window</h3>
 <p>(prefixKey) c</p>
 <p>(prefixKey)0 or (prefixKey)1 to switch to different sessions</p>
 <h3 id="tmux-config">tmux config</h3>
-<p>#vi ~/.tmux.conf</p>
-<p>#Remap prefix to screens
-set -g prefix C-a
+<pre><code>vi ~/.tmux.conf
+</code></pre>
+
+<h3 id="remap-prefix-to-screens">Remap prefix to screens</h3>
+<pre><code>set -g prefix C-a
 bind C-a send-prefix
-unbind C-b</p>
-<p>#Quality of life stuff
-set -g history-limit 10000
+unbind C-b
+</code></pre>
+
+<h3 id="quality-of-life-stuff">Quality of life stuff</h3>
+<p>set -g history-limit 10000
 set -g aloow-rename off</p>
 <p>## Join Windows
 bind-key j commnad-prompt -p "join pane from:" "join-pane -s '%%'"
