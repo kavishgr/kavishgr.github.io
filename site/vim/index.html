@@ -54,7 +54,9 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Vim</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#execute-shell-command">Execute shell command</a>
+    <li class="toctree-l2"><a class="reference internal" href="#execute-shell-command-on-the-data-that-is-in-the-vim-buffer-or-file">Execute shell command on the data that is in the vim buffer or file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly">In fish shell, make a universal variable(or else vim won't work properly):</a>
     </li>
@@ -148,8 +150,17 @@
             <div class="section">
               
                 <h1 id="vim-editor">Vim Editor</h1>
-<h2 id="execute-shell-command">Execute shell command</h2>
+<h2 id="execute-shell-command-on-the-data-that-is-in-the-vim-buffer-or-file">Execute shell command on the data that is in the vim buffer or file</h2>
 <pre><code>:%! sort -u
+</code></pre>
+
+<h2 id="run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</h2>
+<p>Hit <code>!</code> twice, and you'll get a vim prompt in the bottom left corner that looks like this:</p>
+<pre><code>:.!
+</code></pre>
+
+<p>Then just type your command and press enter:</p>
+<pre><code>:.!whoami
 </code></pre>
 
 <h2 id="in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly"><strong>In <code>fish</code> shell, make a universal variable</strong>(or else vim won't work properly):</h2>
