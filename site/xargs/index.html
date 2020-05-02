@@ -148,6 +148,10 @@
 <p><strong>Parse lines of data to <code>xargs</code></strong>(<strong>-d</strong> on linux):</p>
 <pre><code>:%! xargs -n1 -I{} sh -c 'echo {} | base64 -D'
 </code></pre>
+
+<blockquote>
+<p>Note: Omit <code>sh -c</code> if you're using bash</p>
+</blockquote>
               
             </div>
           </div>

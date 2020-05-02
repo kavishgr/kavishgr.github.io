@@ -7,3 +7,5 @@
 ```
 :%! xargs -n1 -I{} sh -c 'echo {} | base64 -D'
 ```
+
+> Note: Omit `sh -c` if you're using bash
