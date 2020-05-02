@@ -60,9 +60,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#pipe-data-into-a-vim-buffer">Pipe data into a vim buffer:</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#parse-lines-of-data-to-xargs-d-on-linux">Parse lines of data to xargs(-d on linux):</a>
-    </li>
     </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../xargs/">Xargs</a>
                     </li>
                 </ul>
                 <ul>
@@ -157,10 +159,6 @@
 <h2 id="pipe-data-into-a-vim-buffer"><strong>Pipe data into a vim buffer:</strong></h2>
 <pre><code>grep -Hnri * | vim -
 </code></pre>
-
-<h2 id="parse-lines-of-data-to-xargs-d-on-linux"><strong>Parse lines of data to <code>xargs</code></strong>(<strong>-d</strong> on linux):</h2>
-<pre><code>:%! xargs -n1 -I{} sh -c 'echo {} | base64 -D'
-</code></pre>
               
             </div>
           </div>
@@ -168,7 +166,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../regexburp/" class="btn btn-neutral float-right" title="Regex for Burp">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../xargs/" class="btn btn-neutral float-right" title="Xargs">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -200,7 +198,7 @@
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../regexburp/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../xargs/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
