@@ -66,6 +66,8 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Testing for Password Reset Functionalities</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#guessbrute-force-password-before-clicking-on-reset-link">Guess/brute force password before clicking on reset link</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#include-your-mail-as-a-second-parameter-you-might-receive-the-reset-link">Include your mail as a second parameter (you might receive the reset link)</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#brute-force-reset-token-if-it-a-numeric-you-can-use-ip-rotator-on-burpsuite-to-bypass-rate-limit-in-case-its-ip-based">Brute force reset token if it a numeric. You can use IP Rotator on Burpsuite to bypass rate limit in case it's IP based</a>
@@ -166,6 +168,9 @@
             <div class="section">
               
                 <h1 id="testing-password-reset-functionalities">Testing Password Reset Functionalities</h1>
+<h2 id="guessbrute-force-password-before-clicking-on-reset-link">Guess/brute force password before clicking on reset link</h2>
+<p>Sometimes the password is reset to a guessable value (birthday date, username+id, etc) even if the reset procedure is not completed (reset link by email, otp, etc)..</p>
+<p>So you can just click on reset password and then guess/brute that value.</p>
 <h2 id="include-your-mail-as-a-second-parameter-you-might-receive-the-reset-link"><strong>Include your mail as a second parameter (you might receive the reset link)</strong></h2>
 <pre><code>POST /reset
 [...]

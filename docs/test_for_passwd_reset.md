@@ -1,5 +1,13 @@
 # Testing Password Reset Functionalities
 
+## Guess/brute force password before clicking on reset link
+
+
+Sometimes the password is reset to a guessable value (birthday date, username+id, etc) even if the reset procedure is not completed (reset link by email, otp, etc)..
+
+So you can just click on reset password and then guess/brute that value.
+
+
 ## **Include your mail as a second parameter (you might receive the reset link)**
 ```
 POST /reset
