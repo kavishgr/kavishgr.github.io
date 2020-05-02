@@ -3,6 +3,7 @@ site_name: Kavish Gour - Notes
 nav:
     - Home: index.md
     - Vim: vim.md
+    - Xargs: xargs.md
     - Regex for Burp: regexburp.md
     - Testing for Password Reset Functionalities: test_for_passwd_reset.md
     - SQLi: sqli.md

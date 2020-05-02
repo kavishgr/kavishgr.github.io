@@ -17,9 +17,3 @@ set -U EDITOR vim
 ```
 grep -Hnri * | vim -
 ```
-
-## **Parse lines of data to `xargs`**(**-d** on linux):
-
-```
-:%! xargs -n1 -I{} sh -c 'echo {} | base64 -D'
-```
