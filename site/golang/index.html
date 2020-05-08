@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Vim - Kavish Gour - Notes</title>
+  <title>Golang - Kavish Gour - Notes</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Vim";
-    var mkdocs_page_input_path = "vim.md";
+    var mkdocs_page_name = "Golang";
+    var mkdocs_page_input_path = "golang.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,22 +51,18 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../golang/">Golang</a>
-                    </li>
-                </ul>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Vim</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Golang</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#execute-shell-command-on-the-data-that-is-in-the-vim-buffer-or-file">Execute shell command on the data that is in the vim buffer or file</a>
+    <li class="toctree-l2"><a class="reference internal" href="#pointers">Pointers</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly">In fish shell, make a universal variable(or else vim won't work properly):</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pipe-data-into-a-vim-buffer">Pipe data into a vim buffer:</a>
+    <li class="toctree-l2"><a class="reference internal" href="#slice">Slice</a>
     </li>
     </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../vim/">Vim</a>
                     </li>
                 </ul>
                 <ul>
@@ -142,7 +138,7 @@
     
       
     
-    <li>Vim</li>
+    <li>Golang</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -153,27 +149,37 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="vim-editor">Vim Editor</h1>
-<h2 id="execute-shell-command-on-the-data-that-is-in-the-vim-buffer-or-file">Execute shell command on the data that is in the vim buffer or file</h2>
-<pre><code>:%! sort -u
+                <h1 id="golang">Golang</h1>
+<h2 id="pointers">Pointers</h2>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+var p = fmt.Println()
+
+func main() {
+    a := 3
+    p(a)       // Step.1 print the value of a
+    double(&amp;a) // step.2 give double() the MEMORY ADDRESS of var a
+    p(a)       // Step.3 print the new value of a
+}
+
+func double(number *int) { // Step.4 double() says ok, that address is holding a value of data type int. Hence an INTEGER.
+    *number *= 2 // Step.5 Use the VALUE of that MEMORY ADDRESS and multiply it 2
+
+}
+
+// NOTE:
+// &amp; = a pointer(location in memory)
+// * = dereferencing a pointer(return the value of that memory address)
+// To be able to change/modify a value in memory, we have to get the memory address first.
+// To be able to knock on someone's door, we need to know where the house is at.
 </code></pre>
 
-<h2 id="run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</h2>
-<p>Hit <code>!</code> twice, and you'll get a vim prompt in the bottom left corner that looks like this:</p>
-<pre><code>:.!
-</code></pre>
-
-<p>Then just type your command and press enter:</p>
-<pre><code>:.!whoami
-</code></pre>
-
-<h2 id="in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly"><strong>In <code>fish</code> shell, make a universal variable</strong>(or else vim won't work properly):</h2>
-<pre><code>set -U EDITOR vim
-</code></pre>
-
-<h2 id="pipe-data-into-a-vim-buffer"><strong>Pipe data into a vim buffer:</strong></h2>
-<pre><code>grep -Hnri * | vim -
-</code></pre>
+<p><a href="">https://play.golang.org/p/cFv2UAuBi2I</a></p>
+<h2 id="slice">Slice</h2>
               
             </div>
           </div>
@@ -181,10 +187,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../xargs/" class="btn btn-neutral float-right" title="Xargs">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../vim/" class="btn btn-neutral float-right" title="Vim">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../golang/" class="btn btn-neutral" title="Golang"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -210,10 +216,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../golang/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../xargs/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../vim/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
