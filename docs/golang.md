@@ -15,11 +15,11 @@ func main() {
 	a := 3
 	p(a)       // Step.1 print the value of a
 	double(&a) // step.2 give double() the MEMORY ADDRESS of var a
-	p(a)       // Step.3 print the new value of a
+	p(a)       // Step.5 print the new value of a
 }
 
-func double(number *int) { // Step.4 double() says ok, that address is holding a value of data type int. Hence an INTEGER.
-	*number *= 2 // Step.5 Use the VALUE of that MEMORY ADDRESS and multiply it 2
+func double(number *int) { // Step.3 double() says ok, that address is holding a value of data type int. Hence an INTEGER.
+	*number *= 2 // Step.4 Use the VALUE of that MEMORY ADDRESS and multiply it 2
 
 }
 
@@ -30,7 +30,7 @@ func double(number *int) { // Step.4 double() says ok, that address is holding a
 // To be able to knock on someone's door, we need to know where the house is at.
 ```
 
-[https://play.golang.org/p/cFv2UAuBi2I]()
+[https://play.golang.org/p/spBmulwDVZf]()
 
 ## Slice
 
