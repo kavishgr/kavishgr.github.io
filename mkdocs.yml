@@ -3,6 +3,7 @@ site_name: Kavish Gour - Notes
 nav:
     - Home: index.md
     - Golang: golang.md
+    - Grep : grep.md
     - Vim: vim.md
     - Xargs: xargs.md
     - Regex for Burp: regexburp.md
