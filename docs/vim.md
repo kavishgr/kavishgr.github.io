@@ -1,5 +1,24 @@
 # Vim Editor
 
+## Vimrc:
+
+```
+let mapleader = "\<space>"
+
+syntax on
+
+let g:pymode_python = 'python3'
+
+
+" sort the buffer for unique lines
+nmap <Leader>s :%!sort -u --version-sort<CR>
+
+" Base64 decode word under cursor
+nmap <Leader>b :!echo <C-R><C-W> \| base64 -D<CR>
+
+set hlsearch
+```
+
 ## Execute shell command on the data that is in the vim buffer or file
 
 ```
