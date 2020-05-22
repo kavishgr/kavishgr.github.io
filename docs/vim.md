@@ -19,6 +19,13 @@ nmap <Leader>b :!echo <C-R><C-W> \| base64 -D<CR>
 set hlsearch
 ```
 
+## Open file under cursor in a new tab:
+
+```
+# Press CTRL+'w' then 'f'
+<C-W>f
+```
+
 ## Execute shell command on the data that is in the vim buffer or file
 
 ```
