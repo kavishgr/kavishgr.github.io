@@ -50,3 +50,12 @@ set -U EDITOR vim
 ```
 grep -Hnri * | vim -
 ```
+
+## Sort the fifth column:
+
+```
+# find . -type f -exec ls -l {} \;
+# to look at content size
+
+:%! sort -k5,5 -n
+```

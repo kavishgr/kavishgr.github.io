@@ -72,6 +72,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#pipe-data-into-a-vim-buffer">Pipe data into a vim buffer:</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sort-the-fifth-column">Sort the fifth column:</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -196,6 +198,13 @@ set hlsearch
 
 <h2 id="pipe-data-into-a-vim-buffer"><strong>Pipe data into a vim buffer:</strong></h2>
 <pre><code>grep -Hnri * | vim -
+</code></pre>
+
+<h2 id="sort-the-fifth-column">Sort the fifth column:</h2>
+<pre><code># find . -type f -exec ls -l {} \;
+# to look at content size
+
+:%! sort -k5,5 -n
 </code></pre>
               
             </div>
