@@ -34,5 +34,7 @@ func double(number *int) { // Step.3 double() says ok, that address is holding a
 
 ## Slice
 
+## Maps
 
+## Structs
 

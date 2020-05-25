@@ -19,6 +19,13 @@ nmap <Leader>b :!echo <C-R><C-W> \| base64 -D<CR>
 set hlsearch
 ```
 
+## Aliases:
+
+```
+alias vimsize='find . -type f -exec ls -l {} \; | vim -'
+
+```
+
 ## Open file under cursor in a new tab:
 
 ```
