@@ -2,6 +2,7 @@ site_name: Kavish Gour - Notes
 
 nav:
     - Home: index.md
+    - Bash Alias: bash_alias.md
     - Golang: golang.md
     - Grep : grep.md
     - Vim: vim.md

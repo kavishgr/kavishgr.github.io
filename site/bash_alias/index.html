@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Xargs - Kavish Gour - Notes</title>
+  <title>Bash Alias - Kavish Gour - Notes</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Xargs";
-    var mkdocs_page_input_path = "xargs.md";
+    var mkdocs_page_name = "Bash Alias";
+    var mkdocs_page_input_path = "bash_alias.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,8 +51,24 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bash_alias/">Bash Alias</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Bash Alias</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#vim">Vim</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sort-by-size">Sort by size</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#grep">Grep</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#new-version-of-grep">New version of grep:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#find-dotdot-slash">Find dotdot slash:</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -67,12 +83,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../vim/">Vim</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Xargs</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#decode-base64-inside-vim">Decode base64 inside vim</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../xargs/">Xargs</a>
                     </li>
                 </ul>
                 <ul>
@@ -144,7 +156,7 @@
     
       
     
-    <li>Xargs</li>
+    <li>Bash Alias</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -155,15 +167,26 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="xargs">xargs</h1>
-<h2 id="decode-base64-inside-vim">Decode base64 inside vim</h2>
-<p><strong>Parse lines of data to <code>xargs</code></strong>(<strong>-d</strong> on linux):</p>
-<pre><code>:%! xargs -n1 -I{} sh -c 'echo {} | base64 -D'
+                <h1 id="bash-alias">Bash Alias</h1>
+<h2 id="vim">Vim</h2>
+<h3 id="sort-by-size">Sort by size</h3>
+<pre><code>alias vimsize='find . -type f -exec ls -l {} \; | vim -'
 </code></pre>
 
-<blockquote>
-<p>Note: Omit <code>sh -c</code> if you're using bash</p>
-</blockquote>
+<p>Then run:</p>
+<pre><code>:%! sort -k5,5 -n
+</code></pre>
+
+<h2 id="grep">Grep</h2>
+<h3 id="new-version-of-grep">New version of grep:</h3>
+<pre><code>alias egrep='/usr/local/opt/grep/bin/gegrep'
+alias fgrep='/usr/local/opt/grep/bin/gfgrep'
+alias grep='/usr/local/opt/grep/bin/ggrep --color=always'
+</code></pre>
+
+<h3 id="find-dotdot-slash">Find dotdot slash:</h3>
+<pre><code>alias gdot='grep -Hrn &quot;\.\./&quot; * '
+</code></pre>
               
             </div>
           </div>
@@ -171,10 +194,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../regexburp/" class="btn btn-neutral float-right" title="Regex for Burp">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../golang/" class="btn btn-neutral float-right" title="Golang">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../vim/" class="btn btn-neutral" title="Vim"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -200,10 +223,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../vim/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../regexburp/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../golang/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

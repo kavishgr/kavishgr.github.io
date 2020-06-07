@@ -52,6 +52,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash_alias/">Bash Alias</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../golang/">Golang</a>
                     </li>
                 </ul>
@@ -62,21 +66,19 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Vim</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#vimrc">Vimrc:</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#aliases">Aliases:</a>
+    <li class="toctree-l2"><a class="reference internal" href="#vimrc">Vimrc</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#open-file-under-cursor-in-a-new-tab">Open file under cursor in a new tab:</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#execute-shell-command-on-the-data-that-is-in-the-vim-buffer-or-file">Execute shell command on the data that is in the vim buffer or file</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</a>
+    <li class="toctree-l2"><a class="reference internal" href="#run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly">In fish shell, make a universal variable(or else vim won't work properly):</a>
+    <li class="toctree-l2"><a class="reference internal" href="#in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly">In fish shell, make a universal variable(or else vim won't work properly)</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#pipe-data-into-a-vim-buffer">Pipe data into a vim buffer:</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#sort-the-fifth-column">Sort the fifth column:</a>
+    <li class="toctree-l2"><a class="reference internal" href="#sort-the-fifth-column">Sort the fifth column</a>
     </li>
     </ul>
                     </li>
@@ -166,7 +168,7 @@
             <div class="section">
               
                 <h1 id="vim-editor">Vim Editor</h1>
-<h2 id="vimrc">Vimrc:</h2>
+<h2 id="vimrc">Vimrc</h2>
 <pre><code>let mapleader = &quot;\&lt;space&gt;&quot;
 
 syntax on
@@ -183,11 +185,6 @@ nmap &lt;Leader&gt;b :!echo &lt;C-R&gt;&lt;C-W&gt; \| base64 -D&lt;CR&gt;
 set hlsearch
 </code></pre>
 
-<h2 id="aliases">Aliases:</h2>
-<pre><code>alias vimsize='find . -type f -exec ls -l {} \; | vim -'
-
-</code></pre>
-
 <h2 id="open-file-under-cursor-in-a-new-tab">Open file under cursor in a new tab:</h2>
 <pre><code># Press CTRL+'w' then 'f'
 &lt;C-W&gt;f
@@ -197,7 +194,7 @@ set hlsearch
 <pre><code>:%! sort -u
 </code></pre>
 
-<h2 id="run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file:</h2>
+<h2 id="run-shell-commands-and-put-the-output-in-the-vim-buffer-or-file">Run shell commands and put the output in the vim buffer or file</h2>
 <p>Hit <code>!</code> twice, and you'll get a vim prompt in the bottom left corner that looks like this:</p>
 <pre><code>:.!
 </code></pre>
@@ -206,7 +203,7 @@ set hlsearch
 <pre><code>:.!whoami
 </code></pre>
 
-<h2 id="in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly"><strong>In <code>fish</code> shell, make a universal variable</strong>(or else vim won't work properly):</h2>
+<h2 id="in-fish-shell-make-a-universal-variableor-else-vim-wont-work-properly"><strong>In <code>fish</code> shell, make a universal variable</strong>(or else vim won't work properly)</h2>
 <pre><code>set -U EDITOR vim
 </code></pre>
 
@@ -214,10 +211,11 @@ set hlsearch
 <pre><code>grep -Hnri * | vim -
 </code></pre>
 
-<h2 id="sort-the-fifth-column">Sort the fifth column:</h2>
-<pre><code># find . -type f -exec ls -l {} \;
-# to look at content size
+<h2 id="sort-the-fifth-column">Sort the fifth column</h2>
+<pre><code># to look at content size
+:%!find . -type f -exec ls -l {} \;
 
+# sort based on fifth column
 :%! sort -k5,5 -n
 </code></pre>
               

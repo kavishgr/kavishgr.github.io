@@ -1,6 +1,6 @@
 # Vim Editor
 
-## Vimrc:
+## Vimrc
 
 ```
 let mapleader = "\<space>"
@@ -19,13 +19,6 @@ nmap <Leader>b :!echo <C-R><C-W> \| base64 -D<CR>
 set hlsearch
 ```
 
-## Aliases:
-
-```
-alias vimsize='find . -type f -exec ls -l {} \; | vim -'
-
-```
-
 ## Open file under cursor in a new tab:
 
 ```
@@ -39,7 +32,7 @@ alias vimsize='find . -type f -exec ls -l {} \; | vim -'
 :%! sort -u
 ```
 
-## Run shell commands and put the output in the vim buffer or file:
+## Run shell commands and put the output in the vim buffer or file
 
 Hit `!` twice, and you'll get a vim prompt in the bottom left corner that looks like this:
 
@@ -53,7 +46,7 @@ Then just type your command and press enter:
 :.!whoami
 ```
 
-## **In `fish` shell, make a universal variable**(or else vim won't work properly):
+## **In `fish` shell, make a universal variable**(or else vim won't work properly)
 
 ```
 set -U EDITOR vim
@@ -65,11 +58,12 @@ set -U EDITOR vim
 grep -Hnri * | vim -
 ```
 
-## Sort the fifth column:
+## Sort the fifth column
 
 ```
-# find . -type f -exec ls -l {} \;
 # to look at content size
+:%!find . -type f -exec ls -l {} \;
 
+# sort based on fifth column
 :%! sort -k5,5 -n
 ```

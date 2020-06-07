@@ -2,6 +2,87 @@
 
 ## Pointers
 
+A Pointer is a variable that stores the memory address of another variable. A variable can contain any type of values, but when a variable has a memory address as its value, it's called a pointer.
+
+To create a pointer, an `&` operator is used to retrieve the memory address of a variable:
+
+```
+var x = 101 // an integer as its value
+var ptr = &x  // get the memory address of x and stores it in a variable called ptr
+```
+The `&x` retrieves the memory address of x and stores it in `ptr`. A complete example:
+
+```
+package main
+
+import "fmt"
+
+var p = fmt.Println
+
+func main() {
+	var x = 101
+	var ptr = &x
+
+	p("The memory address of x:", &x)
+	p("The memory address of ptr:", &ptr)
+	p("The value of ptr:", ptr)
+}
+```
+
+```
+// output
+The memory address of x:	 0xc0000b4020
+The memory address of ptr:	 0xc0000b6018
+The value of ptr:		 	 0xc0000b4020
+```
+
+[Go Playground](https://play.golang.org/p/UoAJkaMtucM)
+
+Every variable represents a memory address pointing to a value like so:
+
+``` 
+0xc0000b6018  = 101
+```
+
+A variable pointing to a memory address of another variable is called a pointer.
+
+### Dereferencing a Pointer
+
+Dereferencing is used to access or manipulate data contained in a memory location pointed to by a pointer variable or simply pointer.
+
+To access or manipulate the data of a pointer or to dereference a pointer, an `*` operator is used in front of the pointer variable:
+
+```
+package main
+
+import "fmt"
+
+var p = fmt.Println
+
+func main() {
+	var x = "Having fun with pointers" // declare a varible with data of type string
+	var ptr = &x // store the memory address of variable, hence a pointer
+	p(*ptr) // print the value of the pointer
+	*ptr = "Still having fun with pointers" // dereference the pointer with new data
+	p(x) // print the new data
+}
+```
+
+[Go Playground](https://play.golang.org/p/e6v88j4E9cZ)
+
+https://dave.cheney.net/2017/04/26/understand-go-pointers-in-less-than-800-words-or-your-money-back
+https://medium.com/@Kabilan1290/journey-of-my-first-bug-bounty-72175d903ce3
+https://medium.com/bugbountywriteup/introduction-to-bug-bounty-for-noobs-46654bd6e0e2
+https://hackingarise.com/xss-dorking/
+
+https://craighays.com/bug-bounty-hunting-tips-6-simplify/
+
+### A Pointer as an Argument in a Function
+
+To define a function() that takes a memory address as an argument or simply a pointer, **`*T`** is used as the type. In this case, `*int` which stands for a pointer to an int, or a memory address whose value is an int.
+
+You give the function() a memory address by prepending the variable with an `&` operator. Inside the function, an `*` is used to access the value, hence dereferencing a pointer.
+
 ```golang
 package main
 
@@ -9,32 +90,68 @@ import (
 	"fmt"
 )
 
-var p = fmt.Println()
+func zero(ptr *int){ 
+	
+	// *int means: i need a memory address that points to data of type int
+	
+	// behind the scene, ptr will point to a memory address that looks like this (in hexadecimal): ptr = 0xc00002c008 
+	
+	// on the next line, the asterisk '*' is used again(now in front of the pointer variable)
+	// to dereference the pointer, hence access/manipulate the value stored in that particular 
+	// memory address
+	// behind the scene => replace the value of 0xc00002c008 with 0
+	
+	*ptr = 0 // store 0 in the memory address *ptr is refering to
+	
+	
+	// if i write: ptr = 0 
+	// the go compiler will return an error saying: cannot use 0 (type int) as type *int in assignment
+	// because ptr is like: var ptr *int
+	// ptr will only accept or store a memory address as its value
+	// 
+	// you can't just assign a value to it
+	// you have to dereference it first
+}
+
 
 func main() {
-	a := 3
-	p(a)       // Step.1 print the value of a
-	double(&a) // step.2 give double() the MEMORY ADDRESS of var a
-	p(a)       // Step.5 print the new value of a
+	x := 5	
+	zero(&x)	// the & operator finds the address of variable x	
+	fmt.Println(x)
 }
-
-func double(number *int) { // Step.3 double() says ok, that address is holding a value of data type int. Hence an INTEGER.
-	*number *= 2 // Step.4 Use the VALUE of that MEMORY ADDRESS and multiply it 2
-
-}
-
-// NOTE:
-// & = a pointer(location in memory)
-// * = dereferencing a pointer(return the value of that memory address)
-// To be able to change/modify a value in memory, we have to get the memory address first.
-// To be able to knock on someone's door, we need to know where the house is at.
 ```
-
-[https://play.golang.org/p/spBmulwDVZf]()
+[Go Playground](https://play.golang.org/p/DhjG6aC-j-M)
 
 ## Slice
+
+A slice is a dynamic container that hold elements of the same type. It's build on top of an array.
+
+https://play.golang.org/p/GJrrw1BYo_O
+
+https://blog.golang.org/slices-intro
+
+https://medium.com/rungo/the-anatomy-of-slices-in-go-6450e3bb2b94
+
+https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/
+
+### Slice Literal
+
+### Two ways to create an empty slice
+
+### for...range loop over a slice
+
+### Slicing a slice
+
+### Appending to a slice
+
+https://medium.com/a-journey-with-go/archive
 
 ## Maps
 
 ## Structs
 
+### Pointer in a struct
+
+https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963
+
+https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/

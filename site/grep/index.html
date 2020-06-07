@@ -52,13 +52,19 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash_alias/">Bash Alias</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../golang/">Golang</a>
                     </li>
                 </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Grep</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#lines-that-begin-with-a-slash-and-end-with-js">Lines that begin with a slash and end with .js:</a>
+    <li class="toctree-l2"><a class="reference internal" href="#lines-that-begin-with-a-slash-and-end-with-js">Lines that begin with a slash and end with .js</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#find-dotdotslash">Find dotdotslash</a>
     </li>
     </ul>
                     </li>
@@ -152,8 +158,12 @@
             <div class="section">
               
                 <h1 id="grep">Grep</h1>
-<h2 id="lines-that-begin-with-a-slash-and-end-with-js">Lines that begin with a slash and end with <code>.js</code>:</h2>
+<h2 id="lines-that-begin-with-a-slash-and-end-with-js">Lines that begin with a slash and end with <code>.js</code></h2>
 <pre><code>find . -type f | html-tool attribs src | grep '\.js$' | egrep '^ */'
+</code></pre>
+
+<h2 id="find-dotdotslash">Find dotdotslash</h2>
+<pre><code>grep -Hrn &quot;\.\./&quot; *
 </code></pre>
               
             </div>

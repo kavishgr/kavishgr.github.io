@@ -51,16 +51,42 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash_alias/">Bash Alias</a>
+                    </li>
+                </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Golang</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#pointers">Pointers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dereferencing-a-pointer">Dereferencing a Pointer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#a-pointer-as-an-argument-in-a-function">A Pointer as an Argument in a Function</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#slice">Slice</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#slice-literal">Slice Literal</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#two-ways-to-create-an-empty-slice">Two ways to create an empty slice</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#forrange-loop-over-a-slice">for...range loop over a slice</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#slicing-a-slice">Slicing a slice</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#appending-to-a-slice">Appending to a slice</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#maps">Maps</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pointer-in-a-struct">Pointer in a struct</a>
+    </li>
+        </ul>
     </li>
     </ul>
                     </li>
@@ -159,37 +185,123 @@
               
                 <h1 id="golang">Golang</h1>
 <h2 id="pointers">Pointers</h2>
+<p>A Pointer is a variable that stores the memory address of another variable. A variable can contain any type of values, but when a variable has a memory address as its value, it's called a pointer.</p>
+<p>To create a pointer, an <code>&amp;</code> operator is used to retrieve the memory address of a variable:</p>
+<pre><code>var x = 101 // an integer as its value
+var ptr = &amp;x  // get the memory address of x and stores it in a variable called ptr
+</code></pre>
+
+<p>The <code>&amp;x</code> retrieves the memory address of x and stores it in <code>ptr</code>. A complete example:</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+var p = fmt.Println
+
+func main() {
+    var x = 101
+    var ptr = &amp;x
+
+    p(&quot;The memory address of x:&quot;, &amp;x)
+    p(&quot;The memory address of ptr:&quot;, &amp;ptr)
+    p(&quot;The value of ptr:&quot;, ptr)
+}
+</code></pre>
+
+<pre><code>// output
+The memory address of x:     0xc0000b4020
+The memory address of ptr:   0xc0000b6018
+The value of ptr:            0xc0000b4020
+</code></pre>
+
+<p><a href="https://play.golang.org/p/UoAJkaMtucM">Go Playground</a></p>
+<p>Every variable represents a memory address pointing to a value like so:</p>
+<pre><code>0xc0000b6018  = 101
+</code></pre>
+
+<p>A variable pointing to a memory address of another variable is called a pointer.</p>
+<h3 id="dereferencing-a-pointer">Dereferencing a Pointer</h3>
+<p>Dereferencing is used to access or manipulate data contained in a memory location pointed to by a pointer variable or simply pointer.</p>
+<p>To access or manipulate the data of a pointer or to dereference a pointer, an <code>*</code> operator is used in front of the pointer variable:</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+var p = fmt.Println
+
+func main() {
+    var x = &quot;Having fun with pointers&quot; // declare a varible with data of type string
+    var ptr = &amp;x // store the memory address of variable, hence a pointer
+    p(*ptr) // print the value of the pointer
+    *ptr = &quot;Still having fun with pointers&quot; // dereference the pointer with new data
+    p(x) // print the new data
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/e6v88j4E9cZ">Go Playground</a></p>
+<p>https://dave.cheney.net/2017/04/26/understand-go-pointers-in-less-than-800-words-or-your-money-back
+https://medium.com/@Kabilan1290/journey-of-my-first-bug-bounty-72175d903ce3
+https://medium.com/bugbountywriteup/introduction-to-bug-bounty-for-noobs-46654bd6e0e2
+https://hackingarise.com/xss-dorking/</p>
+<p>https://craighays.com/bug-bounty-hunting-tips-6-simplify/</p>
+<h3 id="a-pointer-as-an-argument-in-a-function">A Pointer as an Argument in a Function</h3>
+<p>To define a function() that takes a memory address as an argument or simply a pointer, <strong><code>*T</code></strong> is used as the type. In this case, <code>*int</code> which stands for a pointer to an int, or a memory address whose value is an int.</p>
+<p>You give the function() a memory address by prepending the variable with an <code>&amp;</code> operator. Inside the function, an <code>*</code> is used to access the value, hence dereferencing a pointer.</p>
 <pre><code class="golang">package main
 
 import (
     &quot;fmt&quot;
 )
 
-var p = fmt.Println()
+func zero(ptr *int){ 
+
+    // *int means: i need a memory address that points to data of type int
+
+    // behind the scene, ptr will point to a memory address that looks like this (in hexadecimal): ptr = 0xc00002c008 
+
+    // on the next line, the asterisk '*' is used again(now in front of the pointer variable)
+    // to dereference the pointer, hence access/manipulate the value stored in that particular 
+    // memory address
+    // behind the scene =&gt; replace the value of 0xc00002c008 with 0
+
+    *ptr = 0 // store 0 in the memory address *ptr is refering to
+
+
+    // if i write: ptr = 0 
+    // the go compiler will return an error saying: cannot use 0 (type int) as type *int in assignment
+    // because ptr is like: var ptr *int
+    // ptr will only accept or store a memory address as its value
+    // 
+    // you can't just assign a value to it
+    // you have to dereference it first
+}
+
 
 func main() {
-    a := 3
-    p(a)       // Step.1 print the value of a
-    double(&amp;a) // step.2 give double() the MEMORY ADDRESS of var a
-    p(a)       // Step.5 print the new value of a
+    x := 5  
+    zero(&amp;x)    // the &amp; operator finds the address of variable x   
+    fmt.Println(x)
 }
-
-func double(number *int) { // Step.3 double() says ok, that address is holding a value of data type int. Hence an INTEGER.
-    *number *= 2 // Step.4 Use the VALUE of that MEMORY ADDRESS and multiply it 2
-
-}
-
-// NOTE:
-// &amp; = a pointer(location in memory)
-// * = dereferencing a pointer(return the value of that memory address)
-// To be able to change/modify a value in memory, we have to get the memory address first.
-// To be able to knock on someone's door, we need to know where the house is at.
 </code></pre>
 
-<p><a href="">https://play.golang.org/p/spBmulwDVZf</a></p>
+<p><a href="https://play.golang.org/p/DhjG6aC-j-M">Go Playground</a></p>
 <h2 id="slice">Slice</h2>
+<p>A slice is a dynamic container that hold elements of the same type. It's build on top of an array.</p>
+<p>https://play.golang.org/p/GJrrw1BYo_O</p>
+<p>https://blog.golang.org/slices-intro</p>
+<p>https://medium.com/rungo/the-anatomy-of-slices-in-go-6450e3bb2b94</p>
+<p>https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/</p>
+<h3 id="slice-literal">Slice Literal</h3>
+<h3 id="two-ways-to-create-an-empty-slice">Two ways to create an empty slice</h3>
+<h3 id="forrange-loop-over-a-slice">for...range loop over a slice</h3>
+<h3 id="slicing-a-slice">Slicing a slice</h3>
+<h3 id="appending-to-a-slice">Appending to a slice</h3>
+<p>https://medium.com/a-journey-with-go/archive</p>
 <h2 id="maps">Maps</h2>
 <h2 id="structs">Structs</h2>
+<h3 id="pointer-in-a-struct">Pointer in a struct</h3>
+<p>https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963</p>
+<p>https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/</p>
               
             </div>
           </div>
@@ -200,7 +312,7 @@ func double(number *int) { // Step.3 double() says ok, that address is holding a
         <a href="../grep/" class="btn btn-neutral float-right" title="Grep">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../bash_alias/" class="btn btn-neutral" title="Bash Alias"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -226,7 +338,7 @@ func double(number *int) { // Step.3 double() says ok, that address is holding a
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../bash_alias/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../grep/" style="color: #fcfcfc">Next &raquo;</a></span>
