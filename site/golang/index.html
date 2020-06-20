@@ -70,13 +70,15 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#slice-literal">Slice Literal</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#two-ways-to-create-an-empty-slice">Two ways to create an empty slice</a>
+    <li class="toctree-l3"><a class="reference internal" href="#two-ways-to-create-a-slice">Two ways to create a slice</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#forrange-loop-over-a-slice">for...range loop over a slice</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#slicing-a-slice">Slicing a slice</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#appending-to-a-slice">Appending to a slice</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#passing-slices-to-a-variadic-function">Passing Slices to a Variadic Function</a>
     </li>
         </ul>
     </li>
@@ -93,6 +95,10 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../grep/">Grep</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sed/">Sed</a>
                     </li>
                 </ul>
                 <ul>
@@ -272,7 +278,7 @@ func zero(ptr *int){
     // because ptr is like: var ptr *int
     // ptr will only accept or store a memory address as its value
     // 
-    // you can't just assign a value to it
+    // you can't just assign a value in it
     // you have to dereference it first
 }
 
@@ -292,15 +298,205 @@ func main() {
 <p>https://medium.com/rungo/the-anatomy-of-slices-in-go-6450e3bb2b94</p>
 <p>https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/</p>
 <h3 id="slice-literal">Slice Literal</h3>
-<h3 id="two-ways-to-create-an-empty-slice">Two ways to create an empty slice</h3>
+<p>A slice literal is used when you already know what values it will contain:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+
+    s := []string{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;}
+    fmt.Println(s)
+}
+</code></pre>
+
+<h3 id="two-ways-to-create-a-slice">Two ways to create a slice</h3>
+<ul>
+<li>Initialize an empty slice with nil value:</li>
+</ul>
+<pre><code class="golang">var mySlice []int
+</code></pre>
+
+<p>There another shortcut, but the value non-nil but zero-length:</p>
+<pre><code class="golang">slice := []string{}
+</code></pre>
+
+<p>According to <a href="https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices">Golang Wiki</a>, the former is the preferred way.</p>
+<ul>
+<li>Using the builtin <code>make</code> function:</li>
+</ul>
+<pre><code class="golang">mySlice := make([]string, 0, 10)
+</code></pre>
+
+<p>The syntax: <code>make([]T, length, capacity)</code></p>
+<p>Full example:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    mySlice := make([]int, 5, 10)
+    fmt.Printf(&quot;mySlice is of type %T\nIts length is %v\nIts capacity is %v&quot;, mySlice, len(mySlice), cap(mySlice))
+}
+</code></pre>
+
+<p>Output:</p>
+<pre><code>mySlice is of type []int
+Its length is 5
+Its capacity is 10
+</code></pre>
+
+<p><a href="https://play.golang.org/p/049NI7H1ROA">Go Playground</a></p>
 <h3 id="forrange-loop-over-a-slice">for...range loop over a slice</h3>
+<p>The recommended way to iterate over a slice is by using a for...range loop:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    mySlice := []int{1, 2, 3, 4, 5}
+
+    for i, v := range mySlice {
+        fmt.Printf(&quot;Index %v has the value of %v\n&quot;, i, v)  
+    }   
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/t-jsaVKQKYD">Go Playground</a></p>
 <h3 id="slicing-a-slice">Slicing a slice</h3>
+<p>Slicing is used to access an individual or a slice of an array. <strong>Why a slice of an array?</strong> Because slices are built on top of arrays. <strong>If you change an array, the result will reflect in the slice.</strong></p>
+<p><strong>To use the slice operator, two indexes are required</strong>: where the slice should start, and where the slice should stop, but not including it.</p>
+<ul>
+<li><strong>Slicing from index 0 to 4</strong>:</li>
+</ul>
+<pre><code class="golang">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    underlyingArray := [5]string{&quot;g&quot;, &quot;o&quot;, &quot;l&quot;, &quot;a&quot;, &quot;n&quot;, &quot;g&quot;}
+    slice := underlyingArray[0:4]
+    fmt.Println(slice)
+}
+</code></pre>
+
+<p>Output is:</p>
+<pre><code>[g o l a]
+</code></pre>
+
+<p>The second index is the index the slice will stop before.</p>
+<ul>
+<li><strong>Slice from index 1 till the end</strong></li>
+</ul>
+<pre><code class="golang">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;os&quot;
+)
+
+func main() {
+    slice := os.Args[1:]
+    for _, v := range slice {
+        go doSomethingAmazing(v)
+    }
+}
+</code></pre>
+
+<p>Take a list of arguments from standard input and slice from index 1 till the end. Index 0 or the name of the Go script is discarded.</p>
+<ul>
+<li><strong>Slice from index 0 till index 4</strong></li>
+</ul>
+<p>If you omit the start index, 0 will be used as default:</p>
+<pre><code class="golang">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;os&quot;
+)
+
+func main() {
+    underlyingArray := [5]int{1, 2, 3, 4, 5}
+    slice := os.Args[:3]
+    for i, v := range slice {
+        fmt.Printf(&quot;Index %v has the value of %v.&quot;, i, v)
+    }
+}
+</code></pre>
+
+<p>Output is:</p>
+<pre><code>[1 2 3]
+</code></pre>
+
 <h3 id="appending-to-a-slice">Appending to a slice</h3>
-<p>https://medium.com/a-journey-with-go/archive</p>
+<p>The <a href="https://golang.org/pkg/builtin/#append">built-in append function</a>, appends element to the end of a slice. It is therefore necessary to store the result of append, often in the variable holding the slice itself.</p>
+<p><strong>The anatomy of the append function</strong>:</p>
+<pre><code class="golang">func append(slice []Type, elems ...Type) []Type
+</code></pre>
+
+<p>It takes a slice as the first parameter, and the second parameter can be an unlimited number of elements of the same type or another slice(unfurled with an elipsis). And it returns a slice. That's why it's recommended to store the result in the slice that we're appending values to.</p>
+<p>Example:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;bufio&quot;
+    &quot;os&quot;
+)
+
+func main() {
+    var slice []string // initialize a nil slice
+    fmt.Println(slice)  // slice is nil
+    sc := bufio.NewScanner(os.Stdin) // take parameters from standard input
+    for sc.Scan() {                  // loop over lines of input
+        slice = append(slice, sc.Text()) // append each line to the slice
+    }
+    fmt.Println(slice) // results
+}
+</code></pre>
+
+<p>Try it:</p>
+<pre><code class="bash">echo -e &quot;1\n2\n3\n4&quot; | go run main.go
+</code></pre>
+
+<h3 id="passing-slices-to-a-variadic-function">Passing Slices to a Variadic Function</h3>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strings&quot;
+)
+
+func main() {
+    s := []string{&quot;Go&quot;, &quot;is&quot;, &quot;my&quot;, &quot;favourite&quot;, &quot;Programming&quot;, &quot;Language&quot;} // creates a slice of string with 6 elements
+    result := concatStrings(s...) // unfurl the slice with an elipsis and pass it to the function
+    fmt.Println(result) // prints the result
+
+}
+
+func concatStrings(sentence ...string) string { 
+    var sum string
+    for _, v := range sentence {
+        sum += v + &quot; &quot; // concatenate all elements
+    }
+    sum =  strings.TrimSpace(sum) // remove leading and trailing spaces
+    return sum + &quot;.&quot; // add a dot at the end
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/U8SGRB2RO2q">Go Playground</a></p>
 <h2 id="maps">Maps</h2>
 <h2 id="structs">Structs</h2>
+<p>https://pragmaticwebsecurity.com/cheatsheets.html</p>
 <h3 id="pointer-in-a-struct">Pointer in a struct</h3>
 <p>https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963</p>
+<p>https://medium.com/a-journey-with-go/archive</p>
 <p>https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/</p>
               
             </div>

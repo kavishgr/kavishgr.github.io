@@ -109,7 +109,7 @@ func zero(ptr *int){
 	// because ptr is like: var ptr *int
 	// ptr will only accept or store a memory address as its value
 	// 
-	// you can't just assign a value to it
+	// you can't just assign a value in it
 	// you have to dereference it first
 }
 
@@ -136,22 +136,250 @@ https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/
 
 ### Slice Literal
 
-### Two ways to create an empty slice
+A slice literal is used when you already know what values it will contain:
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	s := []string{"a", "b", "c", "d"}
+	fmt.Println(s)
+}
+```
+
+### Two ways to create a slice
+
+* Initialize an empty slice with nil value:
+
+```golang
+var mySlice []int
+```
+
+There another shortcut, but the value non-nil but zero-length:
+
+```golang
+slice := []string{}
+```
+
+According to [Golang Wiki](https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices), the former is the preferred way.
+
+* Using the builtin `make` function:
+
+```golang
+mySlice := make([]string, 0, 10)
+```
+
+The syntax: ```make([]T, length, capacity)```
+
+Full example:
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	mySlice := make([]int, 5, 10)
+	fmt.Printf("mySlice is of type %T\nIts length is %v\nIts capacity is %v", mySlice, len(mySlice), cap(mySlice))
+}
+```
+
+Output:
+
+```
+mySlice is of type []int
+Its length is 5
+Its capacity is 10
+```
+
+[Go Playground](https://play.golang.org/p/049NI7H1ROA)
 
 ### for...range loop over a slice
 
+The recommended way to iterate over a slice is by using a for...range loop:
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	mySlice := []int{1, 2, 3, 4, 5}
+	
+	for i, v := range mySlice {
+		fmt.Printf("Index %v has the value of %v\n", i, v)	
+	}	
+}
+```
+
+[Go Playground](https://play.golang.org/p/t-jsaVKQKYD)
+
 ### Slicing a slice
+
+Slicing is used to access an individual or a slice of an array. **Why a slice of an array?** Because slices are built on top of arrays. **If you change an array, the result will reflect in the slice.**
+
+**To use the slice operator, two indexes are required**: where the slice should start, and where the slice should stop, but not including it.
+
+* **Slicing from index 0 to 4**:
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	underlyingArray := [5]string{"g", "o", "l", "a", "n", "g"}
+	slice := underlyingArray[0:4]
+	fmt.Println(slice)
+}
+```
+
+Output is:
+
+```
+[g o l a]
+```
+
+The second index is the index the slice will stop before.
+
+* **Slice from index 1 till the end**
+
+```golang
+package main
+
+import (
+		"fmt"
+		"os"
+)
+
+func main() {
+	slice := os.Args[1:]
+	for _, v := range slice {
+		go doSomethingAmazing(v)
+	}
+}
+```
+
+Take a list of arguments from standard input and slice from index 1 till the end. Index 0 or the name of the Go script is discarded.
+
+* **Slice from index 0 till index 4**
+
+If you omit the start index, 0 will be used as default:
+
+```golang
+package main
+
+import (
+		"fmt"
+		"os"
+)
+
+func main() {
+	underlyingArray := [5]int{1, 2, 3, 4, 5}
+	slice := os.Args[:3]
+	for i, v := range slice {
+		fmt.Printf("Index %v has the value of %v.", i, v)
+	}
+}
+```
+
+Output is:
+
+```
+[1 2 3]
+```
 
 ### Appending to a slice
 
-https://medium.com/a-journey-with-go/archive
+The [built-in append function](https://golang.org/pkg/builtin/#append), appends element to the end of a slice. It is therefore necessary to store the result of append, often in the variable holding the slice itself.
+
+**The anatomy of the append function**:
+
+```golang
+func append(slice []Type, elems ...Type) []Type
+```
+
+It takes a slice as the first parameter, and the second parameter can be an unlimited number of elements of the same type or another slice(unfurled with an elipsis). And it returns a slice. That's why it's recommended to store the result in the slice that we're appending values to.
+
+Example:
+
+```golang
+package main
+
+import (
+	"fmt"
+	"bufio"
+	"os"
+)
+
+func main() {
+	var slice []string // initialize a nil slice
+	fmt.Println(slice)  // slice is nil
+	sc := bufio.NewScanner(os.Stdin) // take parameters from standard input
+	for sc.Scan() {					 // loop over lines of input
+		slice = append(slice, sc.Text()) // append each line to the slice
+	}
+	fmt.Println(slice) // results
+}
+```
+
+Try it:
+
+```bash
+echo -e "1\n2\n3\n4" | go run main.go
+```
+
+### Passing Slices to a Variadic Function
+
+```golang
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	s := []string{"Go", "is", "my", "favourite", "Programming", "Language"} // creates a slice of string with 6 elements
+	result := concatStrings(s...) // unfurl the slice with an elipsis and pass it to the function
+	fmt.Println(result) // prints the result
+	
+}
+
+func concatStrings(sentence ...string) string { 
+	var sum string
+	for _, v := range sentence {
+		sum += v + " " // concatenate all elements
+	}
+	sum =  strings.TrimSpace(sum) // remove leading and trailing spaces
+	return sum + "." // add a dot at the end
+}
+```
+
+[Go Playground](https://play.golang.org/p/U8SGRB2RO2q)
 
 ## Maps
 
+
+
 ## Structs
+
+https://pragmaticwebsecurity.com/cheatsheets.html
 
 ### Pointer in a struct
 
 https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963
+
+https://medium.com/a-journey-with-go/archive
+
 
 https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/

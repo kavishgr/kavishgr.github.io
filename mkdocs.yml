@@ -5,6 +5,7 @@ nav:
     - Bash Alias: bash_alias.md
     - Golang: golang.md
     - Grep : grep.md
+    - Sed: sed.md
     - Vim: vim.md
     - Xargs: xargs.md
     - Regex for Burp: regexburp.md
