@@ -70,7 +70,7 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#slice-literal">Slice Literal</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#two-ways-to-create-a-slice">Two ways to create a slice</a>
+    <li class="toctree-l3"><a class="reference internal" href="#two-ways-to-create-an-empty-or-nil-slice">Two ways to create an empty or nil slice</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#forrange-loop-over-a-slice">for...range loop over a slice</a>
     </li>
@@ -322,20 +322,16 @@ func main() {
 }
 </code></pre>
 
-<h3 id="two-ways-to-create-a-slice">Two ways to create a slice</h3>
+<h3 id="two-ways-to-create-an-empty-or-nil-slice">Two ways to create an empty or nil slice</h3>
 <ul>
-<li>Initialize an empty slice with nil value:</li>
+<li>Initialize an empty slice with a nil value:</li>
 </ul>
 <pre><code class="golang">var mySlice []int
 </code></pre>
 
-<p>There another shortcut, but the value non-nil but zero-length:</p>
-<pre><code class="golang">slice := []string{}
-</code></pre>
-
 <p>According to <a href="https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices">Golang Wiki</a>, the former is the preferred way.</p>
 <ul>
-<li>Using the builtin <code>make</code> function:</li>
+<li>Using the builtin <code>make</code> function to create an empty slice (non-nil):</li>
 </ul>
 <pre><code class="golang">mySlice := make([]string, 0, 10)
 </code></pre>
@@ -360,7 +356,13 @@ Its length is 5
 Its capacity is 10
 </code></pre>
 
+<p>To create a slice with a length or capacity, use <code>make()</code></p>
 <p><a href="https://play.golang.org/p/049NI7H1ROA">Go Playground</a></p>
+<p>There's another shortcut: </p>
+<pre><code class="golang">slice := []string{}
+</code></pre>
+
+<p>The above slice is empty with a length of zero instead of nil(non-nil slice).</p>
 <h3 id="forrange-loop-over-a-slice">for...range loop over a slice</h3>
 <p>The recommended way to iterate over a slice is by using a for...range loop:</p>
 <pre><code class="golang">package main

@@ -152,23 +152,17 @@ func main() {
 }
 ```
 
-### Two ways to create a slice
+### Two ways to create an empty or nil slice
 
-* Initialize an empty slice with nil value:
+* Initialize an empty slice with a nil value:
 
 ```golang
 var mySlice []int
 ```
 
-There another shortcut, but the value non-nil but zero-length:
-
-```golang
-slice := []string{}
-```
-
 According to [Golang Wiki](https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices), the former is the preferred way.
 
-* Using the builtin `make` function:
+* Using the builtin `make` function to create an empty slice (non-nil):
 
 ```golang
 mySlice := make([]string, 0, 10)
@@ -199,7 +193,17 @@ Its length is 5
 Its capacity is 10
 ```
 
+To create a slice with a length or capacity, use `make()`
+
 [Go Playground](https://play.golang.org/p/049NI7H1ROA)
+
+There's another shortcut: 
+
+```golang
+slice := []string{}
+```
+
+The above slice is empty with a length of zero instead of nil(non-nil slice).
 
 ### for...range loop over a slice
 
