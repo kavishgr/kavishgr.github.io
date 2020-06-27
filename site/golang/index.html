@@ -80,9 +80,9 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#passing-slices-to-a-variadic-function">Passing Slices to a Variadic Function</a>
     </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</a>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#maps">Maps</a>
     </li>
@@ -363,6 +363,8 @@ Its capacity is 10
 </code></pre>
 
 <p>The above slice is empty with a length of zero instead of nil(non-nil slice).</p>
+<p><strong>Note:</strong> In most cases, empty slice and nil slice can be treated the same. In some cases, they should be treated differently, one of them is when doing JSON encoding.
+An empty slice will be encoded as an <code>[]</code> in JSON while nil slice will be encoded as <code>null</code>.</p>
 <h3 id="forrange-loop-over-a-slice">for...range loop over a slice</h3>
 <p>The recommended way to iterate over a slice is by using a for...range loop:</p>
 <pre><code class="golang">package main
@@ -503,7 +505,7 @@ func concatStrings(sentence ...string) string {
 </code></pre>
 
 <p><a href="https://play.golang.org/p/U8SGRB2RO2q">Go Playground</a></p>
-<h2 id="the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</h2>
+<h3 id="the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</h3>
 <pre><code class="golang">package main
 
 import (

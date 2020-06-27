@@ -205,6 +205,9 @@ slice := []string{}
 
 The above slice is empty with a length of zero instead of nil(non-nil slice).
 
+**Note:** In most cases, empty slice and nil slice can be treated the same. In some cases, they should be treated differently, one of them is when doing JSON encoding.
+An empty slice will be encoded as an `[]` in JSON while nil slice will be encoded as `null`.
+
 ### for...range loop over a slice
 
 The recommended way to iterate over a slice is by using a for...range loop:
@@ -371,7 +374,7 @@ func concatStrings(sentence ...string) string {
 
 [Go Playground](https://play.golang.org/p/U8SGRB2RO2q)
 
-## The danger of appending to a slice that already has a length and a capacity
+### The danger of appending to a slice that already has a length and a capacity
 
 ```golang
 package main
