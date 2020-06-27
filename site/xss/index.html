@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Bash Alias - Kavish Gour - Notes</title>
+  <title>XSS - Kavish Gour - Notes</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Bash Alias";
-    var mkdocs_page_input_path = "bash_alias.md";
+    var mkdocs_page_name = "XSS";
+    var mkdocs_page_input_path = "xss.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,24 +51,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Bash Alias</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#vim">Vim</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#sort-by-size">Sort by size</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#grep">Grep</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#new-version-of-grep">New version of grep:</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#find-dotdot-slash">Find dotdot slash:</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash_alias/">Bash Alias</a>
                     </li>
                 </ul>
                 <ul>
@@ -79,8 +63,20 @@
                     <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../xss/">XSS</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">XSS</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#practice">Practice</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cheatsheet">Cheatsheet</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#learn">Learn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prevent-xss">Prevent XSS</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -168,7 +164,7 @@
     
       
     
-    <li>Bash Alias</li>
+    <li>XSS</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -179,26 +175,37 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="bash-alias">Bash Alias</h1>
-<h2 id="vim">Vim</h2>
-<h3 id="sort-by-size">Sort by size</h3>
-<pre><code>alias vimsize='find . -type f -exec ls -l {} \; | vim -'
-</code></pre>
-
-<p>Then run:</p>
-<pre><code>:%! sort -k5,5 -n
-</code></pre>
-
-<h2 id="grep">Grep</h2>
-<h3 id="new-version-of-grep">New version of grep:</h3>
-<pre><code>alias egrep='/usr/local/opt/grep/bin/gegrep'
-alias fgrep='/usr/local/opt/grep/bin/gfgrep'
-alias grep='/usr/local/opt/grep/bin/ggrep --color=always'
-</code></pre>
-
-<h3 id="find-dotdot-slash">Find dotdot slash:</h3>
-<pre><code>alias gdot='grep -Hrn &quot;\.\./&quot; * '
-</code></pre>
+                <h1 id="xss">XSS</h1>
+<p>For the advanced stuff, you're going to want to look into filter evasion techniques.</p>
+<p>Know what encodings work natively in what spaces (text space, attribute space, URI space, script space). HTML encoded entities work in attribute space, for example.</p>
+<p>Know what encodings to try to get the server to decode. Double Nibble Hex encoding, for example.</p>
+<p>Have a solid understanding of SOP, CSP, and CORS.</p>
+<p>Learn the sources and sinks (ins and outs) of DOM XSS.</p>
+<p>XSS is nothing but HTML and javascript. If you don't know how those work, your potential will be very limited.</p>
+<h2 id="practice">Practice</h2>
+<ul>
+<li><a href="https://unescape-room.jobertabma.nl/">The unescape() room</a> - Filter evasion practice</li>
+<li><a href="https://alf.nu/alert1">alf.nu's XSS Game</a> - Filter evasion practice</li>
+<li><a href="http://prompt.ml/0">prompt.ml's XSS Game</a>  - Filter evasion practice</li>
+<li><a href="https://xss.pwnfunction.com/">pwnfunction's XSS Game</a> - Filter evasion practice</li>
+<li><a href="https://public-firing-range.appspot.com/">Google Firing Range</a> - Real world scenarios.</li>
+</ul>
+<h2 id="cheatsheet">Cheatsheet</h2>
+<p><a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet">Portswigger Cheatsheet</a></p>
+<h2 id="learn">Learn</h2>
+<ul>
+<li><a href="https://blog.intigriti.com/hackademy/cross-site-scripting-xss/">Intigriti</a></li>
+<li><a href="https://portswigger.net/web-security/cross-site-scripting">Portswigger Labs</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">Same Origin Policy</a></li>
+<li><a href="https://mathiasbynens.be/notes/javascript-escapes">Javascript Escapes</a></li>
+</ul>
+<h2 id="utilities">Utilities</h2>
+<ul>
+<li><a href="https://xsshunter.com/app">XSS Hunter</a> - Good for Blind XSS</li>
+<li><a href="https://github.com/dwisiswant0/findom-xss">Findom-XSS</a></li>
+</ul>
+<h2 id="prevent-xss">Prevent XSS</h2>
+<p><a href="https://www.reddit.com/r/xss/comments/gqe7e3/is_this_enough_to_prevent_an_xss_attack/">Is replacing special characters enough?</a></p>
               
             </div>
           </div>
@@ -206,10 +213,10 @@ alias grep='/usr/local/opt/grep/bin/ggrep --color=always'
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../golang/" class="btn btn-neutral float-right" title="Golang">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../grep/" class="btn btn-neutral float-right" title="Grep">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../javascript/" class="btn btn-neutral" title="Javascript"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -235,10 +242,10 @@ alias grep='/usr/local/opt/grep/bin/ggrep --color=always'
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../javascript/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../golang/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../grep/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

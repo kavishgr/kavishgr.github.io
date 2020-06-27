@@ -4,6 +4,8 @@ nav:
     - Home: index.md
     - Bash Alias: bash_alias.md
     - Golang: golang.md
+    - Javascript: javascript.md
+    - XSS: xss.md
     - Grep : grep.md
     - Sed: sed.md
     - Vim: vim.md
