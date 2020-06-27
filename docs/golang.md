@@ -367,6 +367,69 @@ func concatStrings(sentence ...string) string {
 
 [Go Playground](https://play.golang.org/p/U8SGRB2RO2q)
 
+## The danger of appending to a slice that already has a length and a capacity
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	numbers := []int{11, 12, 13}
+	mySlice := make([]int, 5, 10)
+	
+	for _, v := range numbers{
+		mySlice = append(mySlice, v)
+	}
+	fmt.Println(mySlice)
+}
+```
+
+Output:
+
+```golang
+[0 0 0 0 0 11 12 13]
+```
+
+One of the ways to make use of an empty slice:
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	candidates := []string{"macOS", "OpenBSD", "Linux"}
+	// number of votes                                                 
+	votes := []string{"macOS", "OpenBSD", "Linux", "macOS", "OpenBSD", "macOS"}
+	// make an empty slice with the length of  the total number of candidates 
+	counts := make([]int, len(candidates)) 
+
+	for _, vote := range votes {
+		matched := false
+		for i, candidate := range candidates {
+			if candidate == vote {
+				counts[i]++
+				matched = true
+			}
+		}
+		if matched == false {
+			candidates = append(candidates, vote)
+			counts = append(counts, 1)
+		}
+	}
+	for i, candidate := range candidates {
+		fmt.Printf("%s: %d\n", candidate, counts[i])
+	}
+}
+```
+
+[Go Playground](https://play.golang.org/p/9QncTu0JVhR)
+
 ## Maps
 
 

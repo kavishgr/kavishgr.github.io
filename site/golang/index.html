@@ -82,6 +82,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#maps">Maps</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
@@ -499,6 +501,62 @@ func concatStrings(sentence ...string) string {
 </code></pre>
 
 <p><a href="https://play.golang.org/p/U8SGRB2RO2q">Go Playground</a></p>
+<h2 id="the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</h2>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    numbers := []int{11, 12, 13}
+    mySlice := make([]int, 5, 10)
+
+    for _, v := range numbers{
+        mySlice = append(mySlice, v)
+    }
+    fmt.Println(mySlice)
+}
+</code></pre>
+
+<p>Output:</p>
+<pre><code class="golang">[0 0 0 0 0 11 12 13]
+</code></pre>
+
+<p>One of the ways to make use of an empty slice:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    candidates := []string{&quot;macOS&quot;, &quot;OpenBSD&quot;, &quot;Linux&quot;}
+    // number of votes                                                 
+    votes := []string{&quot;macOS&quot;, &quot;OpenBSD&quot;, &quot;Linux&quot;, &quot;macOS&quot;, &quot;OpenBSD&quot;, &quot;macOS&quot;}
+    // make an empty slice with the length of  the total number of candidates 
+    counts := make([]int, len(candidates)) 
+
+    for _, vote := range votes {
+        matched := false
+        for i, candidate := range candidates {
+            if candidate == vote {
+                counts[i]++
+                matched = true
+            }
+        }
+        if matched == false {
+            candidates = append(candidates, vote)
+            counts = append(counts, 1)
+        }
+    }
+    for i, candidate := range candidates {
+        fmt.Printf(&quot;%s: %d\n&quot;, candidate, counts[i])
+    }
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/9QncTu0JVhR">Go Playground</a></p>
 <h2 id="maps">Maps</h2>
 <h2 id="structs">Structs</h2>
 <p>https://pragmaticwebsecurity.com/cheatsheets.html</p>
