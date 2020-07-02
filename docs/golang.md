@@ -122,17 +122,68 @@ func main() {
 ```
 [Go Playground](https://play.golang.org/p/DhjG6aC-j-M)
 
+## Assignment Operators
+
+
+## Loops
+
+The beauty of Go's `For` loop is that it merges many modern style of looping into one [keyword](https://golang.org/ref/spec#Keywords). Loops **always** begin with the `for` keyword.
+
+### 
+
+### Init, Condition, and Post (optional)
+
+```golang
+func main() {
+	for i := 0; i <=3; i++{
+		fmt.Println(i)
+	}
+```
+
+**Initialize** a statement - `i := 0`
+**Condition** that determine if the loop has to continue or stop - `i <= 3`
+**Post statement** runs if condition is true - `i++` (including the loop block {})
+
+The variable `i` is only visible in the loop block.
+
+### While loop
+
+To construct a `while loop`, omit the init and post statement:
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	i := 0 // declared outside of loop block
+	fmt.Println("i is", i)
+	for i < 5{ // while true, keep looping
+		i++
+		fmt.Println("Now i is", i)
+	} // end of loop block
+	fmt.Println()
+	fmt.Println("Final is", i)
+
+}
+```
+
+### Infinite loop
+
+
+
+### For...range loop
+
+### Continue and Break
+
+
 ## Slice
 
 A slice is a dynamic container that hold elements of the same type. It's build on top of an array.
 
 https://play.golang.org/p/GJrrw1BYo_O
-
-https://blog.golang.org/slices-intro
-
-https://medium.com/rungo/the-anatomy-of-slices-in-go-6450e3bb2b94
-
-https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/
 
 ### Slice Literal
 
@@ -436,6 +487,30 @@ func main() {
 ```
 
 [Go Playground](https://play.golang.org/p/9QncTu0JVhR)
+
+### Update entries in a loop
+
+```golang
+num := []int{11, 12, 13}
+for _, n := range num {
+    n += 1
+}
+fmt.Println(s)
+// Output: [11 12 13]
+```
+
+The thing is, all the values is being **copied one by one** to **a local variable n**; the slice remained intact. That's why in certain situation, we have to use pointers.
+
+To update the slice, call the slice itself:
+
+```golang
+num := []int{11, 12, 13}
+for i := range num { // n: value is not needed
+	s[i] =+ 1
+}
+fmt.Println(s)
+// Output: [12 13 14]
+```
 
 ## Maps
 

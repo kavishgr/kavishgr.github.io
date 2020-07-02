@@ -66,6 +66,24 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#assignment-operators">Assignment Operators</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loops">Loops</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1"></a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#init-condition-and-post-optional">Init, Condition, and Post (optional)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#while-loop">While loop</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#infinite-loop">Infinite loop</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#forrange-loop">For...range loop</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#continue-and-break">Continue and Break</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#slice">Slice</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#slice-literal">Slice Literal</a>
@@ -81,6 +99,8 @@
     <li class="toctree-l3"><a class="reference internal" href="#passing-slices-to-a-variadic-function">Passing Slices to a Variadic Function</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#the-danger-of-appending-to-a-slice-that-already-has-a-length-and-a-capacity">The danger of appending to a slice that already has a length and a capacity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-entries-in-a-loop">Update entries in a loop</a>
     </li>
         </ul>
     </li>
@@ -129,42 +149,6 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../sqli/">SQLi</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../nahamsec/recon_session_1/">NahamSec Recon Session 1 Notes</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../nahamsec/recon_session_2/">NahamSec Recon Session 2 Notes</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bugbountynotes/firstlivementoring/">BugBountyNotes Mentoring Session</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bugbountynotes/fastfoodhackingsession1/">BugBountyNotes FastFoodHacking Session 1</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bugbountynotes/challengesession1/">BugBountyNotes Challenge Session 1</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bugbountynotes/filterbypass/">BugBountyNotes Filter Bypass Session</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../tomnomnom/session1/">Tomnomnom Q&A Session</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../idor/">Stok IDOR Session</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../vim_tutorial/">Tomnomnom Vim Tutorial</a>
                     </li>
                 </ul>
       </div>
@@ -301,12 +285,48 @@ func main() {
 </code></pre>
 
 <p><a href="https://play.golang.org/p/DhjG6aC-j-M">Go Playground</a></p>
+<h2 id="assignment-operators">Assignment Operators</h2>
+<h2 id="loops">Loops</h2>
+<p>The beauty of Go's <code>For</code> loop is that it merges many modern style of looping into one <a href="https://golang.org/ref/spec#Keywords">keyword</a>. Loops <strong>always</strong> begin with the <code>for</code> keyword.</p>
+<h3 id="_1"></h3>
+<h3 id="init-condition-and-post-optional">Init, Condition, and Post (optional)</h3>
+<pre><code class="golang">func main() {
+    for i := 0; i &lt;=3; i++{
+        fmt.Println(i)
+    }
+</code></pre>
+
+<p><strong>Initialize</strong> a statement - <code>i := 0</code>
+<strong>Condition</strong> that determine if the loop has to continue or stop - <code>i &lt;= 3</code>
+<strong>Post statement</strong> runs if condition is true - <code>i++</code> (including the loop block {})</p>
+<p>The variable <code>i</code> is only visible in the loop block.</p>
+<h3 id="while-loop">While loop</h3>
+<p>To construct a <code>while loop</code>, omit the init and post statement:</p>
+<pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    i := 0 // declared outside of loop block
+    fmt.Println(&quot;i is&quot;, i)
+    for i &lt; 5{ // while true, keep looping
+        i++
+        fmt.Println(&quot;Now i is&quot;, i)
+    } // end of loop block
+    fmt.Println()
+    fmt.Println(&quot;Final is&quot;, i)
+
+}
+</code></pre>
+
+<h3 id="infinite-loop">Infinite loop</h3>
+<h3 id="forrange-loop">For...range loop</h3>
+<h3 id="continue-and-break">Continue and Break</h3>
 <h2 id="slice">Slice</h2>
 <p>A slice is a dynamic container that hold elements of the same type. It's build on top of an array.</p>
 <p>https://play.golang.org/p/GJrrw1BYo_O</p>
-<p>https://blog.golang.org/slices-intro</p>
-<p>https://medium.com/rungo/the-anatomy-of-slices-in-go-6450e3bb2b94</p>
-<p>https://craighays.com/bug-bounty-hunting-tips-4-develop-a-process-and-follow-it/</p>
 <h3 id="slice-literal">Slice Literal</h3>
 <p>A slice literal is used when you already know what values it will contain:</p>
 <pre><code class="golang">package main
@@ -561,6 +581,25 @@ func main() {
 </code></pre>
 
 <p><a href="https://play.golang.org/p/9QncTu0JVhR">Go Playground</a></p>
+<h3 id="update-entries-in-a-loop">Update entries in a loop</h3>
+<pre><code class="golang">num := []int{11, 12, 13}
+for _, n := range num {
+    n += 1
+}
+fmt.Println(s)
+// Output: [11 12 13]
+</code></pre>
+
+<p>The thing is, all the values is being <strong>copied one by one</strong> to <strong>a local variable n</strong>; the slice remained intact. That's why in certain situation, we have to use pointers.</p>
+<p>To update the slice, call the slice itself:</p>
+<pre><code class="golang">num := []int{11, 12, 13}
+for i := range num { // n: value is not needed
+    s[i] =+ 1
+}
+fmt.Println(s)
+// Output: [12 13 14]
+</code></pre>
+
 <h2 id="maps">Maps</h2>
 <h2 id="structs">Structs</h2>
 <p>https://pragmaticwebsecurity.com/cheatsheets.html</p>
