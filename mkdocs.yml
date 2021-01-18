@@ -4,13 +4,8 @@ nav:
     - Home: index.md
     - Bash Alias: bash_alias.md
     - Golang: golang.md
-    - Javascript: javascript.md
-    - XSS: xss.md
     - Grep : grep.md
     - Sed: sed.md
     - Vim: vim.md
     - Xargs: xargs.md
-    - Regex for Burp: regexburp.md
-    - Testing for Password Reset Functionalities: test_for_passwd_reset.md
-    - SQLi: sqli.md
 theme: readthedocs

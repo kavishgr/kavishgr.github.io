@@ -102,25 +102,63 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#update-entries-in-a-loop">Update entries in a loop</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remove-duplicate-values-from-a-slice">remove duplicate values from a slice</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#maps">Maps</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#pointer-in-a-struct">Pointer in a struct</a>
+    <li class="toctree-l3"><a class="reference internal" href="#create-an-empty-map-and-a-map-literal">Create an empty map, and a map literal</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#add-new-key-value-pair">Add new key-value pair</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update-value">Update value</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#iterating-over-a-map">Iterating over a map</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#verify-if-a-key-exists-or-not">Verify if a key exists or not</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete-a-key">Delete a key</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#maps-cant-contain-duplicate-keys">Maps can't contain duplicate keys</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#incrementing-values">Incrementing values</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#diff-maps-for-duplicate-values">Diff maps for duplicate values</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#map-as-a-function-argument">Map as a function argument</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#copy-a-map">Copy a map</a>
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#define-your-own-type">Define your own type</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#define-a-struct">Define a struct</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#define-a-struct-type">Define a struct type</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#struct-defined-type-as-a-function-parameter">Struct defined type as a function parameter</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#try">Try</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-a-pointer-to-modify-a-struct-with-a-function">Use a pointer to modify a struct with a function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#return-a-pointer-to-a-struct">Return a pointer to a struct</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#embedding-anonymous-struct-fields">Embedding Anonymous Struct Fields</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#encapsulation">Encapsulation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#package-visibility">Package Visibility</a>
+    </li>
     </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../javascript/">Javascript</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../xss/">XSS</a>
                     </li>
                 </ul>
                 <ul>
@@ -137,18 +175,6 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../xargs/">Xargs</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../regexburp/">Regex for Burp</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../test_for_passwd_reset/">Testing for Password Reset Functionalities</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../sqli/">SQLi</a>
                     </li>
                 </ul>
       </div>
@@ -239,11 +265,6 @@ func main() {
 </code></pre>
 
 <p><a href="https://play.golang.org/p/e6v88j4E9cZ">Go Playground</a></p>
-<p>https://dave.cheney.net/2017/04/26/understand-go-pointers-in-less-than-800-words-or-your-money-back
-https://medium.com/@Kabilan1290/journey-of-my-first-bug-bounty-72175d903ce3
-https://medium.com/bugbountywriteup/introduction-to-bug-bounty-for-noobs-46654bd6e0e2
-https://hackingarise.com/xss-dorking/</p>
-<p>https://craighays.com/bug-bounty-hunting-tips-6-simplify/</p>
 <h3 id="a-pointer-as-an-argument-in-a-function">A Pointer as an Argument in a Function</h3>
 <p>To define a function() that takes a memory address as an argument or simply a pointer, <strong><code>*T</code></strong> is used as the type. In this case, <code>*int</code> which stands for a pointer to an int, or a memory address whose value is an int.</p>
 <p>You give the function() a memory address by prepending the variable with an <code>&amp;</code> operator. Inside the function, an <code>*</code> is used to access the value, hence dereferencing a pointer.</p>
@@ -294,6 +315,7 @@ func main() {
     for i := 0; i &lt;=3; i++{
         fmt.Println(i)
     }
+}
 </code></pre>
 
 <p><strong>Initialize</strong> a statement - <code>i := 0</code>
@@ -600,13 +622,437 @@ fmt.Println(s)
 // Output: [12 13 14]
 </code></pre>
 
+<h3 id="remove-duplicate-values-from-a-slice">remove duplicate values from a slice</h3>
+<p>https://www.golangprograms.com/remove-duplicate-values-from-slice.html</p>
 <h2 id="maps">Maps</h2>
+<p>A map is an unordered list of key-value pairs. It's a dynamic data structure. It can't contain dupicate keys.</p>
+<h3 id="create-an-empty-map-and-a-map-literal">Create an empty map, and a map literal</h3>
+<ul>
+<li>Empty map:</li>
+</ul>
+<p><strong>Syntax</strong>: <code>make(map[KeyType]ValueType)</code></p>
+<pre><code class="go">m := make(map[string]string)
+
+//OR
+
+var m = make(map[string]string)
+</code></pre>
+
+<ul>
+<li>Map literal(<strong>last trailing comma is necessary</strong>):</li>
+</ul>
+<pre><code class="go">m := map[string]int{
+    &quot;First&quot;: 100,
+    &quot;Second&quot;: 80, // comma is necessary
+} 
+</code></pre>
+
+<h3 id="add-new-key-value-pair">Add new key-value pair</h3>
+<p><strong>Syntax</strong>: <code>m[key] = value</code></p>
+<pre><code class="go">func main() {
+
+    m := map[string]int{
+        &quot;First&quot;:  100,
+        &quot;Second&quot;: 80,
+    }
+
+    fmt.Println(m)
+
+    m[&quot;Third&quot;] = 70
+
+    fmt.Println(m)
+
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/8RRm9AxjkhI">Go Playground</a></p>
+<h3 id="update-value">Update value</h3>
+<pre><code class="go">func main() {
+
+    m := map[string]int{
+        &quot;First&quot;:  100,
+        &quot;Second&quot;: 80,
+    }
+
+    m[&quot;First&quot;] = 0
+    m[&quot;Second&quot;] = 0
+
+    fmt.Println(m)
+}
+
+</code></pre>
+
+<p><a href="https://play.golang.org/p/Zh9sL2k07oS">Go Playground</a></p>
+<h3 id="iterating-over-a-map">Iterating over a map</h3>
+<pre><code class="go">func main() {
+
+    m := map[string]int{
+        &quot;First&quot;:  100,
+        &quot;Second&quot;: 80,
+    }
+
+    for key, value := range m {
+        fmt.Printf(&quot;Key:%v\tValue:%v\n&quot;, key, value)
+    }
+}
+
+</code></pre>
+
+<p><a href="https://play.golang.org/p/2jdjZ8tuIry">Go Playground</a></p>
+<h3 id="verify-if-a-key-exists-or-not">Verify if a key exists or not</h3>
+<p>A map key can also return a second value, a Boolean. If the key exists, it will return true, or false if the key is not present.</p>
+<pre><code class="go">func main() {
+
+    listOfName := []string{&quot;John&quot;, &quot;Mary&quot;, &quot;Jane&quot;}
+    for _, name := range listOfName{
+        grades(name)
+    }
+}
+
+func grades(name string) {
+    students := map[string]float64{
+        &quot;John&quot;: 91.7,
+        &quot;Jane&quot;: 92,
+    }
+    grade, ok := students[name] // the second value
+    if !ok { // if false OR if not true
+        fmt.Printf(&quot;No grade for %v!!!\n&quot;, name)
+    } else if grade &lt; 60 {
+        fmt.Printf(&quot;%v is failing.\n&quot;, name)
+    } else {
+        fmt.Printf(&quot;%v is doing well.\n&quot;, name)
+    }
+}
+
+</code></pre>
+
+<p><a href="https://play.golang.org/p/C3AL-2-ZToT">Go Playground</a></p>
+<h3 id="delete-a-key">Delete a key</h3>
+<p>The built-in <code>delete()</code> function will remove the key and its value.</p>
+<p><strong>Syntax</strong>: <code>delete(map, "KEY")</code></p>
+<pre><code class="go">func main() {
+
+    m := map[string]string{
+        &quot;Team A&quot;: &quot;Champions&quot;,
+        &quot;Team B&quot;: &quot;Losers&quot;,
+    }
+
+    fmt.Println(m)
+    delete(m, &quot;Team B&quot;)
+    fmt.Println(m)
+
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/Ece3kpTFKIY">Go Playground</a></p>
+<h3 id="maps-cant-contain-duplicate-keys">Maps can't contain duplicate keys</h3>
+<pre><code class="go">func main() {
+
+    test := map[string]int{
+        &quot;one&quot;:   1,
+        &quot;two&quot;:   2,
+        &quot;three&quot;: 1,
+        &quot;one&quot;:   20, // duplicate
+    }
+
+    fmt.Println(test)
+}
+</code></pre>
+
+<p>The above code will produce this error:</p>
+<pre><code>./prog.go:13:3: duplicate key &quot;one&quot; in map literal 
+    previous key at ./prog.go:10:3
+</code></pre>
+
+<p><a href="https://play.golang.org/p/LbN3tydsGS3">Go Playground</a></p>
+<h3 id="incrementing-values">Incrementing values</h3>
+<p><strong>Syntax</strong>: <code>map[Key]++</code></p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    // list of names
+    names := []string{&quot;Willy Denis&quot;, &quot;Billy Markovich&quot;, &quot;John Carpenter&quot;, &quot;Willy Denis&quot;, &quot;Billy Markovich&quot;, &quot;John Carpenter&quot;, &quot;Willy Denis&quot;, &quot;Billy Markovich&quot;,}
+    // initialize a map
+    votes := make(map[string]int)
+    // range over the slice of names
+    for _, name := range names { // leave off the index
+        votes[name]++ // use the slice's elements as keys and increment its value by one
+        // uncomment the following line to see what's happening
+        //fmt.Println(votes)
+    }
+    fmt.Println(&quot;The total number of candidates is&quot;, len(votes))
+    fmt.Println()
+    for key, value := range votes {
+        fmt.Printf(&quot;%v has %v votes.\n&quot;, key, value)
+    }
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/9yULbWYAAGr">Go Playground</a></p>
+<h3 id="diff-maps-for-duplicate-values">Diff maps for duplicate values</h3>
+<p>https://stackoverflow.com/questions/57236845/checking-if-map-has-duplicate-values-in-go</p>
+<h3 id="map-as-a-function-argument">Map as a function argument</h3>
+<p>If a variable is pointing to an already initialized map....</p>
+<p>https://medium.com/wesionary-team/pointers-and-passby-value-reference-in-golang-a00c8c59b7f1</p>
+<p>https://www.youtube.com/watch?v=SEd9baxsfEA</p>
+<h3 id="copy-a-map">Copy a map</h3>
+<p>https://stackoverflow.com/questions/23057785/how-to-copy-a-map</p>
+<h2 id="define-your-own-type">Define your own type</h2>
 <h2 id="structs">Structs</h2>
-<p>https://pragmaticwebsecurity.com/cheatsheets.html</p>
-<h3 id="pointer-in-a-struct">Pointer in a struct</h3>
+<p>A struct is a user defined type. It's constructed by grouping multiple values of a single or multiple types together to form a blueprint.</p>
+<h3 id="define-a-struct">Define a struct</h3>
+<p>You declare a struct by using the <code>struct keyword</code> as its type. Each field consists of a field name and a field type:</p>
+<pre><code class="go">func main() {
+    var person struct {
+        name     string
+        age      int
+        employed bool
+    }
+
+    person.name = &quot;John&quot;
+    person.age = 30
+    person.employed = false
+
+    fmt.Println(&quot;My name is&quot;, person.name)
+    fmt.Println(&quot;I am&quot;, person.age, &quot;years old&quot;)
+
+    if person.employed {
+        fmt.Println(&quot;I am currently&quot;, person.employed)
+    }
+</code></pre>
+
+<p>To create another person, we would have to define a whole new struct (including all its fields)all over again.</p>
+<p><a href="https://play.golang.org/p/TKhulAMvZ6_V">Go Playground</a></p>
+<h3 id="define-a-struct-type">Define a struct type</h3>
+<p>With a user defined struct, you just need to create a struct type once, and then use it as a blueprint to create an instance of that type.</p>
+<p>Syntax: <code>type [StructName] struct{Field FieldType}</code></p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+// struct type of a person
+type person struct {
+    name     string
+    age      int
+    employed bool
+}
+
+func main() {
+    // a struct literal
+    john := person{
+        name:     &quot;John&quot;,
+        age:      30,
+        employed: true, // last comma is mandatory
+    }
+
+    fmt.Println(john.name)
+
+    var jane person // create another person
+    jane.name = &quot;Jane&quot;
+    jane.age = 65
+    jane.employed = false
+
+    fmt.Println(jane)
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/AKRDRbBVB8s">Go Playground</a></p>
+<h3 id="struct-defined-type-as-a-function-parameter">Struct defined type as a function parameter</h3>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+type person struct {
+        name     string
+        age      int
+        employed bool
+    }
+
+func getInfo(p person){ // of type person
+    fmt.Println(&quot;Name is&quot;, p.name)
+    fmt.Println(&quot;Age is&quot;, p.age)
+    fmt.Println(&quot;Is employed ?&quot;, p.employed)
+}
+
+func main() {
+
+    var john person
+    john.name = &quot;John&quot;
+    john.age = 30
+    john.employed = false
+
+    getInfo(john)
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/66TnxcE50bn">Go Playground</a></p>
+<h3 id="try">Try</h3>
+<p>https://www.digitalocean.com/community/tutorials/how-to-use-struct-tags-in-go</p>
+<h3 id="use-a-pointer-to-modify-a-struct-with-a-function">Use a pointer to modify a struct with a function</h3>
+<p>A pointer is needed to modify a struct. Without a pointer, the function will obtain a copy of the struct, and the original data won't be updated.</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+type customer struct {
+    name  string
+    total int
+}
+
+func discount(c *customer) { // take a pointer to a struct 
+    c.total = c.total / 2
+}
+
+func main() {
+    var customer1 customer
+    customer1.name = &quot;John&quot;
+    customer1.total = 50
+
+    discount(&amp;customer1) // pass a pointer
+    fmt.Println(customer1.total)
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/sLkau2D9LW_E">Go Playground</a></p>
 <p>https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963</p>
-<p>https://medium.com/a-journey-with-go/archive</p>
+<h3 id="return-a-pointer-to-a-struct">Return a pointer to a struct</h3>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+var(
+    pl = fmt.Println
+)
+
+type customer struct {
+    name         string
+    rate         float64
+    subscription bool
+}
+
+func newCustomer(name string) *customer { //returns a pointer to a struct
+    var c customer
+    c.name = name
+    c.rate = 2.99
+    c.subscription = true
+    return &amp;c
+}
+
+func discount(c *customer) { // takes a pointer
+    c.rate = 1.99
+    pl(&quot;Discount Applied&quot;)
+    pl()
+}
+
+func customerInfo(c *customer) { //takes a pointer
+    pl(&quot;Name:&quot;, c.name)
+    pl(&quot;Monthly Rate:&quot;, c.rate)
+    pl(&quot;Active ?&quot;, c.subscription)
+}
+
+func main() {
+    kavish := newCustomer(&quot;Kavish&quot;) // now the variable kavish is a struct pointer
+    customerInfo(kavish)
+    pl()
+    discount(kavish)
+    customerInfo(kavish)    
+}
+</code></pre>
+
+<p><a href="https://play.golang.org/p/zCJIhYeF_Lj">Go Playground</a></p>
+<h3 id="embedding-anonymous-struct-fields">Embedding Anonymous Struct Fields</h3>
+<p>There's 3 structure - Employee, Customer, and Address:</p>
+<pre><code class="go">package embeddedstructs
+
+type Employee struct {
+    Name       string
+    Age        int
+    Department string
+    Salary     float64
+    Address
+}
+
+type Customer struct {
+    Name string
+    Age  int
+    Rate float64
+    Address
+}
+
+type Address struct {
+    Street     string
+    City       string
+    State      string
+    PostalCode string
+}
+</code></pre>
+
+<p>The <code>Address</code> field can be accessed as if it's embedded in both <code>Employee</code> and <code>Customer</code>:</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;testing/embeddedstructs&quot; // the file is located in 
+)                             // $HOME/go/src/testing/embeddingstructs/embeddingstructs.go
+
+var (
+    pl = fmt.Println
+) 
+
+func main() {
+
+    customer1 := embeddedstructs.Customer{Name: &quot;Kavish Gour&quot;}
+    customer1.Street = &quot;2eme Arrondissement&quot;
+    customer1.City = &quot;Paris&quot;
+    customer1.State = &quot;France&quot;
+    customer1.PostalCode = &quot;75002&quot;
+
+    pl(&quot;Customer Info&quot;)
+    pl(&quot;--------------&quot;)
+    pl(&quot;Name:&quot;, customer1.Name)
+    pl(&quot;Street:&quot;, customer1.Street)
+    pl(&quot;City:&quot;, customer1.City)
+    pl(&quot;State:&quot;, customer1.State)
+    pl(&quot;PostalCode:&quot;, customer1.PostalCode)
+    pl()
+
+    employee := embeddedstructs.Employee{Name: &quot;Jean Delatour&quot;}
+    employee.Street = &quot;4eme Arrondissement&quot;
+    employee.City = &quot;Paris&quot;
+    employee.State = &quot;France&quot;
+    employee.PostalCode = &quot;75004&quot;
+
+    pl(&quot;Employee Info&quot;)
+    pl(&quot;--------------&quot;)
+    pl(&quot;Name:&quot;, employee.Name)
+    pl(&quot;Street:&quot;, employee.Street)
+    pl(&quot;City:&quot;, employee.City)
+    pl(&quot;State:&quot;, employee.State)
+    pl(&quot;PostalCode:&quot;, employee.PostalCode)
+}
+</code></pre>
+
+<h3 id="methods">Methods</h3>
+<p>https://medium.com/rungo/structures-in-go-76377cc106a2
+https://medium.com/rungo/interfaces-in-go-ab1601159b3a
+https://medium.com/rungo/anatomy-of-methods-in-go-f552aaa8ac4a</p>
+<h3 id="encapsulation">Encapsulation</h3>
+<p>https://www.digitalocean.com/community/tutorials/defining-structs-in-go</p>
 <p>https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/</p>
+<h2 id="package-visibility">Package Visibility</h2>
+<p>https://www.digitalocean.com/community/tutorials/understanding-package-visibility-in-go</p>
               
             </div>
           </div>
@@ -614,7 +1060,7 @@ fmt.Println(s)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../javascript/" class="btn btn-neutral float-right" title="Javascript">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../grep/" class="btn btn-neutral float-right" title="Grep">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../bash_alias/" class="btn btn-neutral" title="Bash Alias"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -646,7 +1092,7 @@ fmt.Println(s)
         <span><a href="../bash_alias/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../javascript/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../grep/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

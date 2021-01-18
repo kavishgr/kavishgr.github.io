@@ -70,13 +70,6 @@ func main() {
 
 [Go Playground](https://play.golang.org/p/e6v88j4E9cZ)
 
-https://dave.cheney.net/2017/04/26/understand-go-pointers-in-less-than-800-words-or-your-money-back
-https://medium.com/@Kabilan1290/journey-of-my-first-bug-bounty-72175d903ce3
-https://medium.com/bugbountywriteup/introduction-to-bug-bounty-for-noobs-46654bd6e0e2
-https://hackingarise.com/xss-dorking/
-
-https://craighays.com/bug-bounty-hunting-tips-6-simplify/
-
 ### A Pointer as an Argument in a Function
 
 To define a function() that takes a memory address as an argument or simply a pointer, **`*T`** is used as the type. In this case, `*int` which stands for a pointer to an int, or a memory address whose value is an int.
@@ -138,6 +131,7 @@ func main() {
 	for i := 0; i <=3; i++{
 		fmt.Println(i)
 	}
+}
 ```
 
 **Initialize** a statement - `i := 0`
@@ -512,19 +506,518 @@ fmt.Println(s)
 // Output: [12 13 14]
 ```
 
+### remove duplicate values from a slice
+
+https://www.golangprograms.com/remove-duplicate-values-from-slice.html
+
+
 ## Maps
+
+A map is an unordered list of key-value pairs. It's a dynamic data structure. It can't contain dupicate keys.
+
+### Create an empty map, and a map literal
+
+* Empty map:
+
+**Syntax**: `make(map[KeyType]ValueType)`
+
+```go
+m := make(map[string]string)
+
+//OR
+
+var m = make(map[string]string)
+```
+
+* Map literal(**last trailing comma is necessary**):
+
+```go
+m := map[string]int{
+	"First": 100,
+	"Second": 80, // comma is necessary
+} 
+```
+
+### Add new key-value pair
+
+**Syntax**: `m[key] = value`
+
+```go
+func main() {
+
+	m := map[string]int{
+		"First":  100,
+		"Second": 80,
+	}
+	
+	fmt.Println(m)
+
+	m["Third"] = 70
+
+	fmt.Println(m)
+
+}
+```
+[Go Playground](https://play.golang.org/p/8RRm9AxjkhI)
+
+### Update value
+
+```go
+func main() {
+
+	m := map[string]int{
+		"First":  100,
+		"Second": 80,
+	}
+	
+	m["First"] = 0
+	m["Second"] = 0
+	
+	fmt.Println(m)
+}
+
+```
+[Go Playground](https://play.golang.org/p/Zh9sL2k07oS)
+
+### Iterating over a map
+
+```go
+func main() {
+
+	m := map[string]int{
+		"First":  100,
+		"Second": 80,
+	}
+
+	for key, value := range m {
+		fmt.Printf("Key:%v\tValue:%v\n", key, value)
+	}
+}
+
+```
+
+[Go Playground](https://play.golang.org/p/2jdjZ8tuIry)
+
+### Verify if a key exists or not
+
+A map key can also return a second value, a Boolean. If the key exists, it will return true, or false if the key is not present.
+
+```go
+func main() {
+	
+	listOfName := []string{"John", "Mary", "Jane"}
+	for _, name := range listOfName{
+		grades(name)
+	}
+}
+
+func grades(name string) {
+	students := map[string]float64{
+		"John": 91.7,
+		"Jane": 92,
+	}
+	grade, ok := students[name] // the second value
+	if !ok { // if false OR if not true
+		fmt.Printf("No grade for %v!!!\n", name)
+	} else if grade < 60 {
+		fmt.Printf("%v is failing.\n", name)
+	} else {
+		fmt.Printf("%v is doing well.\n", name)
+	}
+}
+
+```
+
+[Go Playground](https://play.golang.org/p/C3AL-2-ZToT)
+
+### Delete a key
+
+The built-in `delete()` function will remove the key and its value.
+
+**Syntax**: `delete(map, "KEY")`
+
+```go
+func main() {
+	
+	m := map[string]string{
+		"Team A": "Champions",
+		"Team B": "Losers",
+	}
+	
+	fmt.Println(m)
+	delete(m, "Team B")
+	fmt.Println(m)
+
+}
+```
+
+[Go Playground](https://play.golang.org/p/Ece3kpTFKIY)
+
+### Maps can't contain duplicate keys
+
+```go
+func main() {
+
+	test := map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 1,
+		"one":   20, // duplicate
+	}
+
+	fmt.Println(test)
+}
+```
+
+The above code will produce this error:
+
+```
+./prog.go:13:3: duplicate key "one" in map literal 
+	previous key at ./prog.go:10:3
+```
+
+[Go Playground](https://play.golang.org/p/LbN3tydsGS3)
+
+
+### Incrementing values
+
+**Syntax**: `map[Key]++`
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// list of names
+	names := []string{"Willy Denis", "Billy Markovich", "John Carpenter", "Willy Denis", "Billy Markovich", "John Carpenter", "Willy Denis", "Billy Markovich",}
+	// initialize a map
+	votes := make(map[string]int)
+	// range over the slice of names
+	for _, name := range names { // leave off the index
+		votes[name]++ // use the slice's elements as keys and increment its value by one
+		// uncomment the following line to see what's happening
+		//fmt.Println(votes)
+	}
+	fmt.Println("The total number of candidates is", len(votes))
+	fmt.Println()
+	for key, value := range votes {
+		fmt.Printf("%v has %v votes.\n", key, value)
+	}
+}
+```
+
+[Go Playground](https://play.golang.org/p/9yULbWYAAGr)
+
+### Diff maps for duplicate values
+
+https://stackoverflow.com/questions/57236845/checking-if-map-has-duplicate-values-in-go
+
+### Map as a function argument
+
+If a variable is pointing to an already initialized map....
+
+https://medium.com/wesionary-team/pointers-and-passby-value-reference-in-golang-a00c8c59b7f1
+
+https://www.youtube.com/watch?v=SEd9baxsfEA
+
+### Copy a map
+https://stackoverflow.com/questions/23057785/how-to-copy-a-map
+
+## Define your own type
 
 
 
 ## Structs
 
-https://pragmaticwebsecurity.com/cheatsheets.html
+A struct is a user defined type. It's constructed by grouping multiple values of a single or multiple types together to form a blueprint.
 
-### Pointer in a struct
+### Define a struct
+
+You declare a struct by using the `struct keyword` as its type. Each field consists of a field name and a field type:
+
+```go
+func main() {
+	var person struct {
+		name     string
+		age      int
+		employed bool
+	}
+
+	person.name = "John"
+	person.age = 30
+	person.employed = false
+
+	fmt.Println("My name is", person.name)
+	fmt.Println("I am", person.age, "years old")
+	
+	if person.employed {
+		fmt.Println("I am currently", person.employed)
+	}
+```
+
+To create another person, we would have to define a whole new struct (including all its fields)all over again.
+
+[Go Playground](https://play.golang.org/p/TKhulAMvZ6_V)
+
+### Define a struct type
+
+With a user defined struct, you just need to create a struct type once, and then use it as a blueprint to create an instance of that type.
+
+Syntax: `type [StructName] struct{Field FieldType}`
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+// struct type of a person
+type person struct {
+	name     string
+	age      int
+	employed bool
+}
+
+func main() {
+	// a struct literal
+	john := person{
+		name:     "John",
+		age:      30,
+		employed: true, // last comma is mandatory
+	}
+
+	fmt.Println(john.name)
+
+	var jane person // create another person
+	jane.name = "Jane"
+	jane.age = 65
+	jane.employed = false
+
+	fmt.Println(jane)
+}
+```
+
+[Go Playground](https://play.golang.org/p/AKRDRbBVB8s)
+
+### Struct defined type as a function parameter
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type person struct {
+		name     string
+		age      int
+		employed bool
+	}
+
+func getInfo(p person){ // of type person
+	fmt.Println("Name is", p.name)
+	fmt.Println("Age is", p.age)
+	fmt.Println("Is employed ?", p.employed)
+}
+
+func main() {
+	
+	var john person
+	john.name = "John"
+	john.age = 30
+	john.employed = false
+	
+	getInfo(john)
+}
+```
+
+[Go Playground](https://play.golang.org/p/66TnxcE50bn)
+
+### Try
+
+https://www.digitalocean.com/community/tutorials/how-to-use-struct-tags-in-go
+
+
+### Use a pointer to modify a struct with a function
+
+A pointer is needed to modify a struct. Without a pointer, the function will obtain a copy of the struct, and the original data won't be updated.
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type customer struct {
+	name  string
+	total int
+}
+
+func discount(c *customer) { // take a pointer to a struct 
+	c.total = c.total / 2
+}
+
+func main() {
+	var customer1 customer
+	customer1.name = "John"
+	customer1.total = 50
+
+	discount(&customer1) // pass a pointer
+	fmt.Println(customer1.total)
+}
+```
+
+[Go Playground](https://play.golang.org/p/sLkau2D9LW_E)
 
 https://medium.com/a-journey-with-go/go-should-i-use-a-pointer-instead-of-a-copy-of-my-struct-44b43b104963
 
-https://medium.com/a-journey-with-go/archive
+### Return a pointer to a struct
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+var(
+	pl = fmt.Println
+)
+
+type customer struct {
+	name         string
+	rate         float64
+	subscription bool
+}
+
+func newCustomer(name string) *customer { //returns a pointer to a struct
+	var c customer
+	c.name = name
+	c.rate = 2.99
+	c.subscription = true
+	return &c
+}
+
+func discount(c *customer) { // takes a pointer
+	c.rate = 1.99
+	pl("Discount Applied")
+	pl()
+}
+
+func customerInfo(c *customer) { //takes a pointer
+	pl("Name:", c.name)
+	pl("Monthly Rate:", c.rate)
+	pl("Active ?", c.subscription)
+}
+
+func main() {
+	kavish := newCustomer("Kavish") // now the variable kavish is a struct pointer
+	customerInfo(kavish)
+	pl()
+	discount(kavish)
+	customerInfo(kavish)	
+}
+```
+
+[Go Playground](https://play.golang.org/p/zCJIhYeF_Lj)
+
+### Embedding Anonymous Struct Fields
+
+There's 3 structure - Employee, Customer, and Address:
+
+```go
+package embeddedstructs
+
+type Employee struct {
+	Name       string
+	Age        int
+	Department string
+	Salary     float64
+	Address
+}
+
+type Customer struct {
+	Name string
+	Age  int
+	Rate float64
+	Address
+}
+
+type Address struct {
+	Street     string
+	City       string
+	State      string
+	PostalCode string
+}
+```
+
+The `Address` field can be accessed as if it's embedded in both `Employee` and `Customer`:
+
+```go
+package main
+
+import (
+	"fmt"
+	"testing/embeddedstructs" // the file is located in 
+)							  // $HOME/go/src/testing/embeddingstructs/embeddingstructs.go
+
+var (
+	pl = fmt.Println
+) 
+
+func main() {
+
+	customer1 := embeddedstructs.Customer{Name: "Kavish Gour"}
+	customer1.Street = "2eme Arrondissement"
+	customer1.City = "Paris"
+	customer1.State = "France"
+	customer1.PostalCode = "75002"
+
+	pl("Customer Info")
+	pl("--------------")
+	pl("Name:", customer1.Name)
+	pl("Street:", customer1.Street)
+	pl("City:", customer1.City)
+	pl("State:", customer1.State)
+	pl("PostalCode:", customer1.PostalCode)
+	pl()
+
+	employee := embeddedstructs.Employee{Name: "Jean Delatour"}
+	employee.Street = "4eme Arrondissement"
+	employee.City = "Paris"
+	employee.State = "France"
+	employee.PostalCode = "75004"
+
+	pl("Employee Info")
+	pl("--------------")
+	pl("Name:", employee.Name)
+	pl("Street:", employee.Street)
+	pl("City:", employee.City)
+	pl("State:", employee.State)
+	pl("PostalCode:", employee.PostalCode)
+}
+```
+
+### Methods
+
+
+
+https://medium.com/rungo/structures-in-go-76377cc106a2
+https://medium.com/rungo/interfaces-in-go-ab1601159b3a
+https://medium.com/rungo/anatomy-of-methods-in-go-f552aaa8ac4a
+
+### Encapsulation
+
+https://www.digitalocean.com/community/tutorials/defining-structs-in-go
 
 
 https://goinbigdata.com/golang-pass-by-pointer-vs-pass-by-value/
+
+## Package Visibility
+
+https://www.digitalocean.com/community/tutorials/understanding-package-visibility-in-go
