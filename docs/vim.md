@@ -67,3 +67,9 @@ grep -Hnri * | vim -
 # sort based on fifth column
 :%! sort -k5,5 -n
 ```
+
+## Enable Backspace 
+
+```
+set backspace=indent,eol,start
+```

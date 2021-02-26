@@ -276,19 +276,19 @@ import (
 
 func zero(ptr *int){ 
 
-    // *int means: i need a memory address that points to data of type int
+    // *int means: I need a memory address that points to data of type int
 
     // behind the scene, ptr will point to a memory address that looks like this (in hexadecimal): ptr = 0xc00002c008 
 
     // on the next line, the asterisk '*' is used again(now in front of the pointer variable)
     // to dereference the pointer, hence access/manipulate the value stored in that particular 
     // memory address
-    // behind the scene =&gt; replace the value of 0xc00002c008 with 0
+    // behind the scene =&gt; replace the current value of 0xc00002c008 or ptr with 0
 
     *ptr = 0 // store 0 in the memory address *ptr is refering to
 
 
-    // if i write: ptr = 0 
+    // if I write: ptr = 0 
     // the go compiler will return an error saying: cannot use 0 (type int) as type *int in assignment
     // because ptr is like: var ptr *int
     // ptr will only accept or store a memory address as its value
